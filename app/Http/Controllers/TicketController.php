@@ -8,6 +8,8 @@ use App\View\Components\essai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\isNull;
+
 class TicketController extends Controller
 {
     public function create(Request $request){
@@ -17,21 +19,21 @@ class TicketController extends Controller
         }
 
         $tickets = Ticket::where([
-            ['user_id', '=', $user->id],['meal', '=', 'Breakfast'], ['date', '=', date("Y/m/d")],
-        ])->get();
-        if(!$tickets){
-            return 0;
+            ['user_id', '=', $user->id],['meal', '=', $request->meal], ['date', '=', date("Y/m/d")],
+        ])->get();            
+        if(sizeof($tickets) != 0){
+            session()->flash('error', 'You can\'t create another '.$request->meal. ' ticket');           
         }
+        else{
 
-       Ticket::create([
-            'meal'      => $request['meal'],
-            'date'      => date("Y/m/d"),
-            'user_id'  => Auth::user()->id,
-            //orders=> $request['orders']
-        ]);
-        event( new TicketCreatedEvent());
-        //$successful = new essai();
-        //$successful->render();
+            Ticket::create([
+                'meal'      => $request['meal'],
+                'date'      => date("Y/m/d"),
+                'user_id'  => Auth::user()->id,
+                //orders=> $request['orders']
+            ]);
+            session()->flash('message', 'Ticket successfully created');
+        }
 
         return redirect()->back(); //redirect('home');
     }

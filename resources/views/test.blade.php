@@ -9,7 +9,7 @@
 
     <!-- Fonts -->
     <script src="https://kit.fontawesome.com/37e9ee2609.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('assets/css/foodhut.css')}}">
     <link href="{{asset('assets/css/bootstrap.css')}}" rel="stylesheet">
@@ -19,7 +19,8 @@
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
     <!-- Navbar -->
     <nav class="custom-navbar navbar navbar-expand-lg navbar-dark fixed-top" data-spy="affix" data-offset-top="10">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -68,7 +69,12 @@
         </div>
         @endif
     </header>
-    <livewire:counter/>
+    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus"
+        data-bs-content="Disabled popover">
+        <button class="btn btn-primary" type="button" disabled>@lang</button>
+    </span>
     @livewireScripts
+    
 </body>
+
 </html>

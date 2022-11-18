@@ -4,9 +4,8 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class essai extends Component
+class TicketForm extends Component
 {
-    //public $message;
     /**
      * Create a new component instance.
      *
@@ -14,7 +13,7 @@ class essai extends Component
      */
     public function __construct()
     {
-        //$this->message = $message;
+        //
     }
 
     /**
@@ -24,7 +23,6 @@ class essai extends Component
      */
     public function render()
     {
-        return view('components.essai');
+        return view('components.ticket-form');
     }
 }
-

@@ -4194,7 +4194,7 @@ textarea.form-control-lg {
   --bs-card-cap-color: ;
   --bs-card-height: ;
   --bs-card-color: ;
-  --bs-card-bg: #fff;
+  --bs-card-bg: #fff; 
   --bs-card-img-overlay-padding: 1rem;
   --bs-card-group-margin: 0.75rem;
   position: relative;
@@ -5670,7 +5670,7 @@ textarea.form-control-lg {
   --bs-popover-zindex: 1070;
   --bs-popover-max-width: 276px;
   --bs-popover-font-size: 0.875rem;
-  --bs-popover-bg: #fff;
+  --bs-popover-bg: #dc3545;
   --bs-popover-border-width: 1px;
   --bs-popover-border-color: var(--bs-border-color-translucent);
   --bs-popover-border-radius: 0.5rem;
@@ -5683,7 +5683,7 @@ textarea.form-control-lg {
   --bs-popover-header-bg: #f0f0f0;
   --bs-popover-body-padding-x: 1rem;
   --bs-popover-body-padding-y: 1rem;
-  --bs-popover-body-color: #212529;
+  --bs-popover-body-color: #fff;
   --bs-popover-arrow-width: 1rem;
   --bs-popover-arrow-height: 0.5rem;
   --bs-popover-arrow-border: var(--bs-popover-border-color);

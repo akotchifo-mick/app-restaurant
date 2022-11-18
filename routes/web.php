@@ -43,4 +43,4 @@ Route::get('/home', function(){
 })->middleware('auth');
 
 Route::post('/lauch', [TicketController::class, 'create'])
-    ->middleware('auth')->name('prudo');
+    ->middleware('auth')->name('requestTicket');
