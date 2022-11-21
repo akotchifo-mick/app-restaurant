@@ -14,15 +14,10 @@ class TicketFactory extends Factory
      */
     public function definition()
     {
-        $user_id = User::where('role', 'student')
-                       ->get()
-                       ->pluck('id');
-        return [
-            'user_id'   => $this->faker->randomElement($user_id),
+        return [            
             'meal'      => $this->faker->randomElement(['Breakfast', 'Lunch', 'Dinner']),
-            'date'      => $this->faker->date(),
-            //'orders'    => $this->faker->rand(1,5),
-
+            'date'      => $this->faker->dateTimeBetween('2022-11-01', 'now'),
+            'orders'    => rand(1,5),
         ];
     }
 }

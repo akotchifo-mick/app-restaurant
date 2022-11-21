@@ -16,14 +16,9 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            event( new AuthRequiredEvent ($request));
+            session()->flash('authRequired', 'You can\'t access to this page without being logged in');
             return route('welcome');
             
         }
-        /**
-         * route ('welcome')  OK
-         * 
-         */
-        //route('welcome')->with('status', 'failed') return redirect()->route('welcome') ;
     }
 }

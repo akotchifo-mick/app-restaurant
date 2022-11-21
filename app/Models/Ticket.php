@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,14 +19,17 @@ class Ticket extends Model
     protected $fillable = [
         'meal',
         'orders',
-        'date', 
-        'user_id'       
+        'date',
+        'user_id',
+        'number',
+        'consumed',
     ];
 
     /**remove timestamps*/
     public $timestamps = false;
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

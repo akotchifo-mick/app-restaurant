@@ -445,7 +445,8 @@
             </script> Made with <i class="ti-heart text-danger"></i> By dISO</p>
     </div>
     <!-- end of page footer 
-    <livewire:create-ticket/>-->
+        <livewire:create-ticket/>
+    -->
 
     @livewireScripts
     <!-- core  -->

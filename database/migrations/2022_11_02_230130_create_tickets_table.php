@@ -15,14 +15,15 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();        
+            $table->foreignId('user_id')->constrained(); 
+            $table->date('date');       
+            $table->integer('number')->min(0);
             $table->enum('meal', array('Breakfast', 'Lunch', 'Dinner'));
-            $table->date('date');
-            //$table->integer('orders');
-            //$table->boolean('consumed')->default('False');
+            $table->integer('orders') ;
+            $table->boolean('consumed')->default(0);
+            $table->index(['date','number'])->unique();
+            $table->index(['date', 'user_id', 'meal'])->unique();
         });
-
-        //i gota add la clé c'est deux colonnes date and ticket number
     }
 
     /**
