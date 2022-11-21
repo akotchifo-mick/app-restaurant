@@ -17,10 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {       
-    return view('welcome');
-})->name('welcome');
-
 Route::get('/test', function() {
     return view('test');
 });
@@ -29,18 +25,34 @@ Route::get('layout', function(){
     return view('layout');
 }) ->name('layout');
 
-Route::get('/home', function(){
+Route::get('/', function(){
     $user = Auth::user();
-    $tickets = Ticket::where([
-        ['user_id', '=', $user->id],['meal', '=', 'Breakfast'], ['date', '=', date("Y/m/d")]
-    ])->orWhere([
-        ['user_id', '=', $user->id],['meal', '=', 'Lunch'], ['date', '=', date("Y/m/d")]
-    ])->orWhere([
-        ['user_id', '=', $user->id],['meal', '=', 'Dinner'], ['date', '=', date("Y/m/d")]
-    ])
-    ->orderByDesc('date')->limit(3)->get();
-    return view('welcome',compact('tickets'));
-})->middleware('auth');
+    if(is_null($user))
+        return view('welcome');
+    
+    else {
+        $tickets = Ticket::where([
+            ['user_id', '=', $user->id],['meal', '=', 'Breakfast'], ['date', '=', date("Y/m/d")]
+        ])->orWhere([
+            ['user_id', '=', $user->id],['meal', '=', 'Lunch'], ['date', '=', date("Y/m/d")]
+        ])->orWhere([
+            ['user_id', '=', $user->id],['meal', '=', 'Dinner'], ['date', '=', date("Y/m/d")]
+        ])
+        ->orderByDesc('date')->limit(3)->get();
+        return view('welcome',compact('tickets'));
+    }    
+})->name('welcome');
 
 Route::post('/lauch', [TicketController::class, 'create'])
     ->middleware('auth')->name('requestTicket');
+
+Route::get('/delete', function() {
+    return view('delete');
+});
+
+Route::get('/setZero', function() {
+    return view('zero');
+});
+
+Route::post('/setZero', [TicketController::class, 'setZero'])->name('setZero');
+Route::post('/deleteAll', [TicketController::class, 'destroy'])->name('deleteAll');

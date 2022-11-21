@@ -19,9 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('lastName');
             $table->string('firstName');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('email_verified_at')->nullable(); // est-ce nécessaire?
             $table->enum('role', array('student', 'admin', 'waiter'));
             $table->string('password');
+            //valider le cardId en demandant une image soit de la carte soit de la fiche d'inscription
         });
     }
 

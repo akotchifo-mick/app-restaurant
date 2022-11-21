@@ -17,12 +17,12 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained(); 
             $table->date('date');       
-            $table->integer('number')->min(0);
+            $table->integer('number');
             $table->enum('meal', array('Breakfast', 'Lunch', 'Dinner'));
             $table->integer('orders') ;
             $table->boolean('consumed')->default(0);
-            $table->index(['date','number'])->unique();
-            $table->index(['date', 'user_id', 'meal'])->unique();
+            $table->index(['date','number'])->unique(); // les numéros de tickets sont réinitialisés tous les jours
+            $table->index(['date', 'user_id', 'meal'])->unique(); // un etudiant ne peut avoir qu'un ticket par repas chaque jour        
         });
     }
 

@@ -20,8 +20,7 @@ class TicketComponent extends Component
      */
     public function __construct($tickets)
     {
-        $user = Auth::user();
-        $this->tickets  = Ticket::where('cardId', $user->cardId);
+        $this->tickets = $tickets;
     }
 
     /**

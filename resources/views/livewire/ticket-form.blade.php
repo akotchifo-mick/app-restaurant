@@ -8,14 +8,15 @@
             <div class="col-sm-2 col-md-2 col-xs-4 my-2">
                 <select name="meal" id="meal" class="form-control form-control-lg custom-form-control"
                 wire:model='meal'>
-                    <option value="breakfast">Breakfast</option>
-                    <option value="lunch">Lunch</option>
-                    <option value="dinner">Dinner</option>
+                    <option selected disabled> Please select an option...</option>
+                    <option value="breakfast">@lang('Breakfast')</option>
+                    <option value="lunch">@lang('Lunch')</option>
+                    <option value="dinner">@lang('Dinner')</option>
                 </select>
             </div>
-            <div class="col-sm-2 col-md-2 col-xs-4 my-2">
+            <div class="col-sm-2 col-md-2 col-xs-2 my-2">
                 <input type="number" id="orders" class="form-control form-control-lg custom-form-control" required
-                    placeholder="Plats" max="5" min="1" wire:model='orders'>
+                    placeholder="Nombre de plats" max="5" min="1" wire:model='orders'>
             </div>
             <div class="col-sm-4 col-md-4 col-xs-2 my-2"></div>
         </div>

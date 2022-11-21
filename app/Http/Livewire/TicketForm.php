@@ -8,10 +8,12 @@ use Livewire\Component;
 
 class TicketForm extends Component
 {
+    public $orders, $meal;
     public function render()
     {
         return view('livewire.ticket-form');
     }
+    
     public function create() {
         $user = Auth::user();
 
@@ -21,8 +23,10 @@ class TicketForm extends Component
         ]);
 
         $tickets = Ticket::where([
-            ['user_id', '=', $user->id],['meal', '=', 'Breakfast'], ['date', '=', date("Y/m/d")],
-        ])->get();
+                            ['user_id', '=', $user->id],
+                            ['meal', '=', 'Breakfast'],
+                            ['date', '=', date("Y/m/d")],
+                        ])->get();
 
         if($tickets){
             session()->flash('message', 'You can\'t create another breakfast ticket');

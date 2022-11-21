@@ -44,8 +44,9 @@ class CreateNewUser implements CreatesNewUsers
 
         ]);
 
-        event(new Registered($user));
+        /*event(new Registered($user));
         Auth::login($user);
-        return view('welcome')->with('status', 'Profile stored!');
+        return view('welcome')->with('status', 'Profile stored!');*/
+        return $user;
     }
 }
