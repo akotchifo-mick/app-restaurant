@@ -43,8 +43,10 @@ Route::get('/', function(){
     }    
 })->name('welcome');
 
-Route::post('/lauch', [TicketController::class, 'create'])
-    ->middleware('auth')->name('requestTicket');
+/*Route::post('/lauch', [TicketController::class, 'create'])
+    ->middleware('auth')->name('requestTicket');*/
+
+Route::view('ticket-form', 'livewire.home');
 
 Route::get('/delete', function() {
     return view('delete');
@@ -56,3 +58,4 @@ Route::get('/setZero', function() {
 
 Route::post('/setZero', [TicketController::class, 'setZero'])->name('setZero');
 Route::post('/deleteAll', [TicketController::class, 'destroy'])->name('deleteAll');
+

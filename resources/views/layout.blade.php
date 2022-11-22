@@ -47,7 +47,7 @@
                 </span>
             </a>
             <ul class="navbar-nav">
-                @if(Route::has('login'))
+                
                 @auth
                 <li class="nav-item">
                     <a class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideScreen">
@@ -74,19 +74,19 @@
                         </li>
                     </ul>
                 </div>
-                @else
-                <li class="nav-item">
+                @endauth
+                @guest
+                <!--<li class="nav-item">
                     <button class="btn btn-outline-secondary" disabled>
                         Disabled tickets
                     </button>
-                </li>
+                </li>-->
                 <li class="nav-item">
                     <a class="nav-link" type="button" data-bs-target="#modalConnexion" data-bs-toggle="modal">
                         Connexion
                     </a>
                 </li>
-                @endauth
-                @endif
+                @endguest
             </ul>
         </div>
     </nav>
