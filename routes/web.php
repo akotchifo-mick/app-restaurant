@@ -17,30 +17,42 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function() {
+Route::get('/test', function () {
     return view('test');
 });
 
-Route::get('layout', function(){
+Route::get('layout', function () {
     return view('layout');
-}) ->name('layout');
+})->name('layout');
 
-Route::get('/', function(){
+Route::get ('/dashboard', function () {
+    return view ( 'users.dashboard' );
+})->middleware ('auth')->name ( 'dashboard' );
+
+Route::get('/', function () {
     $user = Auth::user();
-    if(is_null($user))
-        return view('welcome');
+
+    if (is_null($user))
+            return view('users.welcome')->with('tickets', '');
     
     else {
-        $tickets = Ticket::where([
-            ['user_id', '=', $user->id],['meal', '=', 'Breakfast'], ['date', '=', date("Y/m/d")]
-        ])->orWhere([
-            ['user_id', '=', $user->id],['meal', '=', 'Lunch'], ['date', '=', date("Y/m/d")]
-        ])->orWhere([
-            ['user_id', '=', $user->id],['meal', '=', 'Dinner'], ['date', '=', date("Y/m/d")]
-        ])
-        ->orderByDesc('date')->limit(3)->get();
-        return view('welcome',compact('tickets'));
-    }    
+
+        if ($user->role == 'admin')
+            return view('admin.admin');
+
+        else {
+
+            $tickets = Ticket::where([
+                ['user_id', '=', $user->id], ['meal', '=', 'Breakfast'], ['date', '=', date("Y/m/d")]
+            ])->orWhere([
+                ['user_id', '=', $user->id], ['meal', '=', 'Lunch'], ['date', '=', date("Y/m/d")]
+            ])->orWhere([
+                ['user_id', '=', $user->id], ['meal', '=', 'Dinner'], ['date', '=', date("Y/m/d")]
+            ])
+                ->orderByDesc('date')->limit(3)->get();
+            return view('users.welcome', compact('tickets'));
+        }
+    }
 })->name('welcome');
 
 /*Route::post('/lauch', [TicketController::class, 'create'])
@@ -48,14 +60,17 @@ Route::get('/', function(){
 
 Route::view('ticket-form', 'livewire.home');
 
-Route::get('/delete', function() {
-    return view('delete');
+Route::get('/delete', function () {
+    return view('admin.delete');
 });
 
-Route::get('/setZero', function() {
-    return view('zero');
+Route::get('/setZero', function () {
+    return view('admin.zero');
 });
 
 Route::post('/setZero', [TicketController::class, 'setZero'])->name('setZero');
 Route::post('/deleteAll', [TicketController::class, 'destroy'])->name('deleteAll');
 
+Route::get('/admin', function () {
+    return view('admin.admin');
+});

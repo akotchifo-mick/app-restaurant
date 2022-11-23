@@ -12,7 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Contracts\RegisterResponse as ContractsRegisterResponse;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Responses\RegisterResponse;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -40,6 +42,9 @@ class FortifyServiceProvider extends ServiceProvider
             if($user && Hash::check($request->password, $user->password)) 
                 return $user;
         })); 
+
+        //$this->app->singleton ( ContractsRegisterResponse::class, RegisterResponse::class);
+
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('users.layout')
 
 @section('main')
 
@@ -12,8 +12,8 @@
                         <div class="col-12 text-center align-self-center">
                             <div class="section">
                                 <h6 class="mt-5 d-flex justify-content-around ">
-                                    <span class="h3"> @lang('Log In')</span>
-                                    <span class="h3">@lang('Register') </span>
+                                    <span class="h3"> @lang( 'Log In' )</span>
+                                    <span class="h3"> @lang( 'Register' ) </span>
                                 </h6>
                                 <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" hidden />
                                 <label for="reg-log"></label>
@@ -21,30 +21,28 @@
                                     <div class="card-3d-wrapper">
                                         <div class="card-front">
                                             <div class="center-wrap">
-                                                <form action="{{route('login')}}" method="POST">
+                                                <form action="{{ route ( 'login' ) }} " method="POST">
                                                     @csrf
                                                     <div class="section text-center">
-                                                        <h1 class="pb-3">@lang('Log In')</h1>
+                                                        <h1 class="pb-3"> @lang ('Log In' ) </h1>
                                                         <div class="form-floating mt-3">
-                                                            <input type="integer" name="cardId"
-                                                                class="form-control @error('cardId') is-invalid @enderror"
-                                                                placeholder="Your Card Id" id="cardId"
-                                                                value="{{old('cardId')}}" autocomplete="cardId"
-                                                                autofocus>
-                                                            @error('cardId')
+                                                            <input type="text" name="cardId"
+                                                                class="form-control @error ( 'cardId' ) is-invalid @enderror"
+                                                                placeholder="Your Card Id" id="cardId" autofocus>
+                                                            @error ( 'cardId' )
                                                             <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
+                                                                <strong> {{ $message }} </strong>
                                                             </span>
                                                             @enderror
-                                                            <label for="incardid">@lang('Your Card Id')</label>
+                                                            <label for="cardId"> @lang ( 'Your Card Id' )</label>
                                                         </div>
                                                         <div class="form-floating mt-3">
                                                             <input type="password" name="password" class="form-control"
                                                                 placeholder="Your Password" id="password">
-                                                            <label for="password">@lang('Your Password')</label>
+                                                            <label for="password"> @lang ( 'Your Password' ) </label>
                                                             <!--@error('password')
                                                                 <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{$message}}</strong>
+                                                                    <strong> {{ $message }} </strong>
                                                                 </span>
                                                             @enderror()-->
                                                         </div>
@@ -53,14 +51,15 @@
                                                                 <input class="form-check-input" type="checkbox"
                                                                     name="rememberUser" id="rememberUser">
                                                                 <label class="form-check-label" for="rememberuser">
-                                                                    @lang('Remember me') </label>
+                                                                    @lang ( 'Remember me' ) </label>
                                                             </div>
                                                             <a href="" class="text-danger" style="margin-top:15px">
-                                                                @lang('Forgot Password ?')
+                                                                @lang ( 'Forgot Password ?' )
                                                             </a>
                                                         </div>
                                                         <div class="mt-5 d-grid gap-2 col-6 mx-auto">
-                                                            <button class=" btn btn-primary">@lang('Submit')</button>
+                                                            <button class=" btn btn-primary"> @lang( 'Submit' )
+                                                            </button>
                                                         </div>
 
                                                         </h2>
@@ -70,83 +69,77 @@
                                         </div>
                                         <div class="card-back">
                                             <div class="center-wrap">
-                                                <form action="{{route('register')}}" method="POST">
+                                                <form action="{{ route ( 'register' ) }} " method="POST">
                                                     @csrf
                                                     <div class="section text-center">
-                                                        <h1>@lang('Sign Up') </h1>
-                                                        <div class="form-floating mt-2">
+                                                        <h1> @lang ( 'Sign Up' ) </h1>
+                                                        <div class="form-floating mt-1">
                                                             <input type="text" name="lastName"
-                                                                class="form-control @error('lastName') is-invalid @enderror"
-                                                                placeholder="Your Full Name" id="lastName"
-                                                                value="{{old('lastName')}}" autocomplete="lastName"
-                                                                autofocus>
-                                                            @error('lastName')
+                                                                class="form-control @error ( 'lastName' ) is-invalid @enderror"
+                                                                placeholder="Your Lastname" id="lastName" autofocus>
+                                                            @error ( 'lastName' )
                                                             <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
+                                                                <strong> {{ $message }} </strong>
                                                             </span>
                                                             @enderror
-                                                            <label for="lastName">@lang('Your Lastname') </label>
+                                                            <label for="lastName"> @lang ( 'Your Lastname' )</label>
                                                         </div>
                                                         <div class="form-floating mt-1">
                                                             <input type="text" name="firstName"
-                                                                class="form-control @error('firstName') is-invalid @enderror"
-                                                                placeholder="Your Full Name" id="firstName"
-                                                                value="{{old('firstName')}}" autocomplete="firstName"
-                                                                autofocus>
-                                                            @error('firstName')
+                                                                class="form-control @error ( 'firstName' ) is-invalid @enderror"
+                                                                placeholder="Your FirstName" id="firstName" autofocus>
+                                                            @error ( 'firstName' )
                                                             <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
+                                                                <strong> {{ $message }} </strong>
                                                             </span>
                                                             @enderror
-                                                            <label for="firstName">@lang('Your Firstname') </label>
+                                                            <label for="firstName"> @lang ( 'Your Firstname' )</label>
                                                         </div>
                                                         <div class="form-floating mt-1">
                                                             <input type="text" name="cardId"
-                                                                class="form-control @error('cardId') is-invalid @enderror"
-                                                                placeholder="Your Card Id" id="cardId"
-                                                                value="{{old('cardId')}}" autocomplete="cardId"
-                                                                autofocus>
-                                                            @error('cardId')
+                                                                class="form-control @error ( 'cardId' ) is-invalid @enderror"
+                                                                placeholder="Your Card Id" id="cardId" autofocus>
+                                                            @error ( 'cardId' )
                                                             <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
+                                                                <strong> {{ $message }} </strong>
                                                             </span>
                                                             @enderror
-                                                            <label for="cardId">@lang('Your Card Id') </label>
-
+                                                            <label for="cardId"> @lang ( 'Your Card Id' )</label>
                                                         </div>
                                                         <div class="form-floating mt-1">
                                                             <input type="email" name="email"
-                                                                class="form-control @error('email') is-invalid @enderror"
+                                                                class="form-control @error ( 'email' ) is-invalid @enderror"
                                                                 placeholder="Your Email" id="email"
-                                                                value="{{old('email')}}" autocomplete="email" autofocus>
-                                                            @error('email')
+                                                                value="{{ old ( 'email' ) }} " autocomplete="email"
+                                                                autofocus>
+                                                            @error ( 'email' )
                                                             <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
+                                                                <strong> {{ $message }} </strong>
                                                             </span>
                                                             @enderror
-                                                            <label for="email">@lang('Your Email') </label>
+                                                            <label for="email"> @lang( 'Your Email' ) </label>
                                                         </div>
                                                         <div class="form-floating mt-1">
                                                             <input type="password" name="password"
-                                                                class="form-control @error('password') is-invalid @enderror"
+                                                                class="form-control @error ( 'password' ) is-invalid @enderror"
                                                                 placeholder="Your Password" id="password" autofocus>
-                                                            @error('password')
+                                                            @error ( 'password' )
                                                             <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
+                                                                <strong> {{ $message }} </strong>
                                                             </span>
                                                             @enderror
-                                                            <label for="password">@lang('Your Password')</label>
+                                                            <label for="password"> @lang ( 'Your Password' )</label>
                                                         </div>
                                                         <div class="form-floating mt-1">
                                                             <input type="password" name="password_confirmation"
                                                                 class="form-control" placeholder="Confirm Your Password"
                                                                 id="password_confirmation" autofocus>
-                                                            <label for="password_confirmation">@lang('Confirm Your
-                                                                Password')</label>
+                                                            <label for="password_confirmation"> @lang ( 'Confirm Your
+                                                                Password' ) </label>
                                                         </div>
                                                         <div class="mt-2 d-grid gap-2 col-6 mx-auto"">
                                                             <button class=" btn btn-primary">
-                                                            @lang('Submit')</button>
+                                                            @lang ( 'Submit' )</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -166,11 +159,11 @@
 <!--Sidescreen-->
 <div class="offcanvas offcanvas-end text-bg-dark" id="sideScreen">
     <div class="offcanvas-header">
-        <h1 class="offcanvas-title ">Tickets</h1>
+        <h1 class="offcanvas-title "> Tickets </h1>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body">
-        <livewire:ticket-component :tickets="$tickets" />
+        <livewire:ticket-component :tickets=" $tickets " />
     </div>
 </div>
 
@@ -205,7 +198,7 @@
 
 <!--  gallary Section  -->
 <div id="gallary" class="text-center bg-dark text-light has-height-md middle-items wow fadeIn">
-    <h2 class="section-title">@lang('OUR MENU')</h2>
+    <h2 class="section-title"> @lang( 'OUR MENU' ) </h2>
 </div>
 <div class="gallary row">
     <div class="col-sm-4 col-lg-4 gallary-item wow fadeIn">
@@ -235,35 +228,35 @@
 
 <!-- REVIEWS Section  -->
 <div id="testmonial" class="container-fluid wow fadeIn bg-dark text-light has-height-lg middle-items">
-    <h2 class="section-title my-5 text-center">REVIEWS</h2>
+    <h2 class="section-title my-5 text-center"> REVIEWS </h2>
     <div class="row mt-3 mb-5">
         <div class="col-md-4 my-3 my-md-0">
             <div class="testmonial-card">
-                <h3 class="testmonial-title">John Doe</h3>
-                <h6 class="testmonial-subtitle">Web Designer</h6>
+                <h3 class="testmonial-title"> John Doe </h3>
+                <h6 class="testmonial-subtitle"> Web Designer </h6>
                 <div class="testmonial-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
-                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam!</p>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
+                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam! </p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 my-3 my-md-0">
             <div class="testmonial-card">
-                <h3 class="testmonial-title">Steve Thomas</h3>
-                <h6 class="testmonial-subtitle">UX/UI Designer</h6>
+                <h3 class="testmonial-title"> Steve Thomas </h3>
+                <h6 class="testmonial-subtitle"> UX/UI Designer </h6>
                 <div class="testmonial-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum minus obcaecati cum
-                        eligendi perferendis magni dolorum ipsum magnam, sunt reiciendis natus. Aperiam!</p>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum minus obcaecati cum
+                        eligendi perferendis magni dolorum ipsum magnam, sunt reiciendis natus. Aperiam! </p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 my-3 my-md-0">
             <div class="testmonial-card">
-                <h3 class="testmonial-title">Miranda Joy</h3>
-                <h6 class="testmonial-subtitle">Graphic Designer</h6>
+                <h3 class="testmonial-title"> Miranda Joy </h3>
+                <h6 class="testmonial-subtitle"> Graphic Designer </h6>
                 <div class="testmonial-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, nam. Earum nobis eligendi,
-                        dignissimos consequuntur blanditiis natus. Aperiam!</p>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, nam. Earum nobis eligendi,
+                        dignissimos consequuntur blanditiis natus. Aperiam! </p>
                 </div>
             </div>
         </div>
