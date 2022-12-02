@@ -22,7 +22,7 @@ Route::get('/test', function () {
 });
 
 Route::get('layout', function () {
-    return view('layout');
+    return view('users.layout');
 })->name('layout');
 
 Route::get ('/dashboard', function () {
@@ -38,7 +38,7 @@ Route::get('/', function () {
     else {
 
         if ($user->role == 'admin')
-            return view('admin.admin');
+            return view('admin.starter');
 
         else {
 
@@ -60,6 +60,10 @@ Route::get('/', function () {
 
 Route::view('ticket-form', 'livewire.home');
 
+/**
+ * everything above this section works fine
+ */
+
 Route::get('/delete', function () {
     return view('admin.delete');
 });
@@ -72,5 +76,13 @@ Route::post('/setZero', [TicketController::class, 'setZero'])->name('setZero');
 Route::post('/deleteAll', [TicketController::class, 'destroy'])->name('deleteAll');
 
 Route::get('/admin', function () {
-    return view('admin.admin');
+
+    return view('admin.starter');
 });
+
+Route::get('/admin/students', function () {
+
+    return view('admin.students');
+});
+Route::view('ticket-zero', 'livewire.home');
+Route::view('the-students', 'livewire.home');

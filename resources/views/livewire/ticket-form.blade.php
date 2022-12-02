@@ -38,7 +38,7 @@
     {{-- The Master doesn't talk, he acts. --}}
     <div>
 
-        <form>           
+        <form>
             @csrf
             <h2 class="section-title ">@lang('Book-Table')</h2>
             @if ($errors->any())
@@ -49,8 +49,7 @@
             <div class="row mb-2">
                 <div class="col-sm-4 col-md-4 col-xs-2 my-2"></div>
                 <div class="col-sm-2 col-md-2 col-xs-4 my-2">
-                    <select name="meal" class="form-control form-control-lg custom-form-control"
-                     wire:model='meal'>
+                    <select name="meal" class="form-control form-control-lg custom-form-control" wire:model='meal'>
                         <option hidden>Choisir le repas</option>
                         <option value="breakfast">@lang('Breakfast')</option>
                         <option value="lunch">@lang('Lunch')</option>
@@ -59,7 +58,7 @@
                 </div>
                 <div class="col-sm-2 col-md-2 col-xs-2 my-2">
                     <input type="number" class="form-control form-control-lg custom-form-control"
-                        placeholder="Nombre de plats" max="5" min="1" wire:model='orders' name="orders" >                    
+                        placeholder="Nombre de plats" max="5" min="1" wire:model='orders' name="orders">
                 </div>
                 <div class="col-sm-4 col-md-4 col-xs-2 my-2"></div>
             </div>
@@ -76,13 +75,7 @@
                 </span>
             </div>
             @endguest
+
         </form>
     </div>
-
-    <script>
-        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-          return new bootstrap.Popover(popoverTriggerEl)
-        })
-    </script>
 </div>

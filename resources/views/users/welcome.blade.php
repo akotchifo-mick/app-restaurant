@@ -2,6 +2,87 @@
 
 @section('main')
 
+<!-- Navbar -->
+<nav class="custom-navbar navbar navbar-expand-lg navbar-dark fixed-top" data-spy="affix" data-offset-top="10">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#home">@lang('Home')</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#about">@lang('About')</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#gallary">@lang('Menu')</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#book-table">@lang('Book-Table')</a>
+            </li>
+        </ul>
+        <a class="navbar-brand m-auto" href="#">
+            <img src="{{asset('assets/images/logo.svg')}}" class="brand-img" alt="">
+            <span class="brand-txt">
+                Restau-U
+            </span>
+        </a>
+        <ul class="navbar-nav">
+
+            @auth
+            <li class="nav-item">
+                <a class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideScreen">
+                    Tickets
+                </a>
+            </li>
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-regular fa-user"></i> {{Auth::user()->lastName.' '.Auth::user()->firstName
+                            }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-center"
+                            aria-labelledby="navbarDarkDropdownMenuLink" style="--bs-dropdown-spacer: 0.49rem;">
+                            <li><a class="dropdown-item" href="{{route('dashboard')}}">@lang('Dashboard')</a></li>
+                            <li>
+                                <form action="{{route('logout')}}" method="POST">
+                                    @csrf
+                                    <button class="dropdown-item">@lang('Logout')</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            @endauth
+            @guest
+            <!--<li class="nav-item">
+                    <button class="btn btn-outline-secondary" disabled>
+                        Disabled tickets
+                    </button>
+                </li>-->
+            <li class="nav-item">
+                <a class="nav-link" type="button" data-bs-target="#modalConnexion" data-bs-toggle="modal">
+                    Connexion
+                </a>
+            </li>
+            @endguest
+        </ul>
+    </div>
+</nav>
+
+<!-- header -->
+<header id="home" class="header">
+    <div class="overlay text-white text-center">
+        <h1 class="display-2 font-weight-bold my-3">Restau-U</h1>
+        <h2 class="display-4 mb-5">Plus simple &amp; Plus efficace</h2>
+    </div>
+</header>
+
 <!--Connexion Modal-->
 <div class="modal" id="modalConnexion">
     <div class="modal-dialog modal-dialog-centered">
@@ -279,6 +360,14 @@
                 <p><span class="ti-location-pin pr-3"></span> 12345 Fake ST NoWhere, AB Country</p>
                 <p><span class="ti-support pr-3"></span> (123) 456-7890</p>
                 <p><span class="ti-email pr-3"></span>info@website.com</p>
+            </div>
+            <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Hello, world! This is a toast message.
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
             </div>
         </div>
     </div>

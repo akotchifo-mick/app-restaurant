@@ -73,6 +73,8 @@
         data-bs-content="Disabled popover">
         <button class="btn btn-primary" type="button" disabled>@lang</button>
     </span>
+
+   
     @livewireScripts
     
 </body>
