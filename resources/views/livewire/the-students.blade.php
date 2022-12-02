@@ -44,7 +44,11 @@
                         wire:click="setUser ({{ $user->id }}) "> Détails </button>
                 </td>
             </tr>
-            
+            @if ( $user->id == $getUserId)
+                <livewire:user-details :user=" $user " />
+            @endif
+
+
             @endforeach
         </tbody>
     </table>

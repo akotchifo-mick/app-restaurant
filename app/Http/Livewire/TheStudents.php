@@ -13,8 +13,12 @@ class TheStudents extends Component
     public string $search = '';
     public $orderDirection = 'ASC';
     public $orderField = 'cardId';
+    public $getUserId = 0;
 
     protected $paginationTheme = 'bootstrap';
+    protected $queryString = [
+        'search'    =>  [ 'except' => '' ]
+    ];
 
     public function setOrderField (string $name) {
         if( $name == $this->orderField )
@@ -26,6 +30,10 @@ class TheStudents extends Component
         }
     }
 
+    public function setUser ( int $id ){
+        $this->getUserId = $id;
+        //$this->emitTo( 'user-details', 'getUserDetails');
+    } 
     public function render ()
     {        
         return view( 'livewire.the-students', [
