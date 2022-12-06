@@ -2,6 +2,21 @@
 
 @section('main')
 
+<div class="modal" tabindex="-1" id="authRequired" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title ">ACCES REFUSE </h2>
+                <button type="button" class="btn-close" data-dismiss="modal"></button>
+            </div>
+            <div class="modal-body bg-fuchsia text-danger justify-content-center">
+                Vous tentez d'accéder à une ressource qui nécessite une authentification. <br>
+                Vueillez vous authetifier d'abord !!
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Navbar -->
 <nav class="custom-navbar navbar navbar-expand-lg navbar-dark fixed-top" data-spy="affix" data-offset-top="10">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -130,8 +145,9 @@
                                                         <div class="d-flex justify-content-between">
                                                             <div class="form-check mt-3">
                                                                 <input class="form-check-input" type="checkbox"
-                                                                    name="rememberUser" id="rememberUser">
-                                                                <label class="form-check-label" for="rememberuser">
+                                                                    name="remember" id="remember" {{ old('remember')
+                                                                    ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="remember">
                                                                     @lang ( 'Remember me' ) </label>
                                                             </div>
                                                             <a href="" class="text-danger" style="margin-top:15px">
@@ -366,7 +382,8 @@
                     <div class="toast-body">
                         Hello, world! This is a toast message.
                     </div>
-                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
                 </div>
             </div>
         </div>

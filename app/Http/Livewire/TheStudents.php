@@ -19,6 +19,11 @@ class TheStudents extends Component
     protected $queryString = [
         'search'    =>  [ 'except' => '' ]
     ];
+    protected $listeners = [
+        'onClosed'    =>  '$refresh',
+        'refreshModal'  =>   '$refresh',
+        'resetUserId'  
+    ];
 
     public function setOrderField (string $name) {
         if( $name == $this->orderField )
@@ -31,9 +36,22 @@ class TheStudents extends Component
     }
 
     public function setUser ( int $id ){
-        $this->getUserId = $id;
-        //$this->emitTo( 'user-details', 'getUserDetails');
+        $this->emit( 'refreshModal' ); 
+        $this->getUserId = $id;  
+        $this->dispatchBrowserEvent('fireModal'); 
     } 
+
+    public function updating ( $name, $value){
+        if( $name == 'search')
+            $this->resetPage();
+    }
+
+    
+     public function resetUserId (){
+       $this->reset('getUserId');
+       $this->emit('refreshModal');
+    }
+    
     public function render ()
     {        
         return view( 'livewire.the-students', [

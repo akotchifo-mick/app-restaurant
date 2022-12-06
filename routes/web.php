@@ -64,16 +64,8 @@ Route::view('ticket-form', 'livewire.home');
  * everything above this section works fine
  */
 
-Route::get('/delete', function () {
-    return view('admin.delete');
-});
 
-Route::get('/setZero', function () {
-    return view('admin.zero');
-});
 
-Route::post('/setZero', [TicketController::class, 'setZero'])->name('setZero');
-Route::post('/deleteAll', [TicketController::class, 'destroy'])->name('deleteAll');
 
 Route::get('/admin', function () {
 
@@ -83,6 +75,6 @@ Route::get('/admin', function () {
 Route::get('/admin/students', function () {
 
     return view('admin.students');
-});
+}) -> middleware('auth');
 Route::view('ticket-zero', 'livewire.home');
 Route::view('the-students', 'livewire.home');

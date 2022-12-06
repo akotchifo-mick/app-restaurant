@@ -15,9 +15,9 @@
     <table class="table is-fullwidth has-text-grey">
         <thead>
             <tr>
-                <th scope="col" wire:click="setOrderField('cardId')">Matricule</th>
-                <th scope="col" wire:click="setOrderField('lastName')">Nom & Prénom (s)</th>
-                <th scope="col" wire:click="setOrderField('email')">Adresse Mail</th>
+                <th scope="col" wire:click="setOrderField('cardId')"> Matricule </th>
+                <th scope="col" wire:click="setOrderField('lastName')"> Nom & Prénom (s) </th>
+                <th scope="col" wire:click="setOrderField('email')"> Adresse Mail </th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -44,8 +44,9 @@
                         wire:click="setUser ({{ $user->id }}) "> Détails </button>
                 </td>
             </tr>
-            @if ( $user->id == $getUserId)
-                <livewire:user-details :user=" $user " />
+
+            @if ( $getUserId == $user->id )
+                <livewire:user-details :user=" $user " :wire:key=" $user->id " />
             @endif
 
 

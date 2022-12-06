@@ -39,6 +39,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::authenticateUsing((function (Request $request){
             $user = User::where('cardId', $request->cardId)->first();
+                        
             if($user && Hash::check($request->password, $user->password)) 
                 return $user;
         })); 

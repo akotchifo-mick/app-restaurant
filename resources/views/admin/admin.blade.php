@@ -12,8 +12,8 @@
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('assets/css/admin/adminlte.min.css')}}">
   <link href="{{asset('assets/css/admin/bootstrap.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('assets/css/admin/adminlte.min.css')}}">
 
   <!-- Fonts -->
   <script src="https://kit.fontawesome.com/37e9ee2609.js" crossorigin="anonymous"></script>
@@ -489,11 +489,11 @@
   <script src="{{asset('assets/js/admin/adminlte.min.js')}}"></script>
   <!-- jQuery 
   <script src="{{asset('assets/js/bootstrap.affix.js')}}"></script>-->
-  <!-- Bootstrap 4
-  <script src="{{asset('assets/js/jquery-3.4.1.js')}}"></script>
-  <script src="{{asset('assets/js/bootstrap.bundle.js')}}"></script>-->
-  <!-- AdminLTE App -->
-  
+  <script>
+    window.addEventListener( 'fireModal', event => {
+      $( "#userData").modal('show')
+    } )
+  </script>
 </body>
 
 </html>

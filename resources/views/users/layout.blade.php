@@ -53,6 +53,11 @@
         return new bootstrap.Toast(toastEl, option)
         });
     </script>
+    @if ( session()->has('authRequired') )
+    <script>         
+        $( "#authRequired").modal('show')
+    </script>
+@endif
 
 </body>
 

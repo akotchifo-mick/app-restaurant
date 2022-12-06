@@ -2,24 +2,25 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Ticket;
 use App\Models\User;
-use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 
-class UserDetails extends Component
+class UserDetails extends ModalComponent 
 {
 
-    
     public User $user;
+    public Ticket $tickets;
 
-    /*protected $listeners = ['updateUserDetails'];
+    protected $listeners = [
+        'onClosed'    =>  '$refresh'
+    ];
 
-
-    public function updateUserDetails (){
-        dd($nombre);
-        //if(!is_null ($nombre) ) 
-           $this->userId = $nombre;
-    }   
-    }*/
+    public function closed() 
+    {
+        $this->emit('onClosed');
+        $this->emit('resetUserId');
+    }
 
     public function render()
     {
