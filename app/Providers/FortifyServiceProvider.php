@@ -37,12 +37,38 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        Fortify::registerView( function () {
+            return view ( 'users.register' );
+        });
+
         Fortify::authenticateUsing((function (Request $request){
             $user = User::where('cardId', $request->cardId)->first();
                         
             if($user && Hash::check($request->password, $user->password)) 
                 return $user;
+                
+            else {                
+                session()->flash('authFailed', 'failed');
+            }
+            
         })); 
+
+        Fortify::requestPasswordResetLinkView(function () {
+            return view('users.forgot-password');
+        });
+
+        Fortify::resetPasswordView(function ($request) {
+            return view('users.reset-password', ['request' => $request]);
+        });
+
+        Fortify::verifyEmailView(function () {
+            return view('users.verify-email');
+        });
+
+        Fortify::confirmPasswordView(function () {
+            return view('users.confirm-password');
+        });
 
         //$this->app->singleton ( ContractsRegisterResponse::class, RegisterResponse::class);
 

@@ -17,8 +17,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function () {
-    return view('test');
+Route::get('/test', function () {$user = Auth::user();
+
+    if (is_null($user))
+            return view('users.footer')->with('tickets', '');
+    
+    else {
+
+        if ($user->role == 'admin')
+            return view('admin.starter');
+
+        else {
+
+            $tickets = Ticket::where([
+                ['user_id', '=', $user->id], ['meal', '=', 'Breakfast'], ['date', '=', date("Y/m/d")]
+            ])->orWhere([
+                ['user_id', '=', $user->id], ['meal', '=', 'Lunch'], ['date', '=', date("Y/m/d")]
+            ])->orWhere([
+                ['user_id', '=', $user->id], ['meal', '=', 'Dinner'], ['date', '=', date("Y/m/d")]
+            ])
+                ->orderByDesc('date')->limit(3)->get();
+            return view('users.footer', compact('tickets'));
+        }
+    }
 });
 
 Route::get('layout', function () {
@@ -26,7 +47,7 @@ Route::get('layout', function () {
 })->name('layout');
 
 Route::get ('/dashboard', function () {
-    return view ( 'users.dashboard' );
+    return view ( 'dashboard' );
 })->middleware ('auth')->name ( 'dashboard' );
 
 Route::get('/', function () {
@@ -55,8 +76,7 @@ Route::get('/', function () {
     }
 })->name('welcome');
 
-/*Route::post('/lauch', [TicketController::class, 'create'])
-    ->middleware('auth')->name('requestTicket');*/
+
 
 Route::view('ticket-form', 'livewire.home');
 

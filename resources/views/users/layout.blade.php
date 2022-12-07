@@ -18,6 +18,12 @@
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+    <!-- header -->
+        <header id="home" class="header">
+            <div class="overlay text-white text-center">
+                @yield('useful')
+            </div>
+        </header>
 
     @yield('main')
 
@@ -40,7 +46,7 @@
 
     <!-- FoodHut js -->
     <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('assets/js/foodhut.js')}}"></script>
+    <!--<script src="{{asset('assets/js/foodhut.js')}}"></script>-->
     <script>
         var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
         var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {

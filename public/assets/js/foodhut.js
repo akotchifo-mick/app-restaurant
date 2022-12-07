@@ -10,7 +10,7 @@
 =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+
 
 // smooth scroll
 $(document).ready(function(){
@@ -43,4 +43,4 @@ function initMap() {
       position: uluru,
       map: map
     });
- }
+ }*/

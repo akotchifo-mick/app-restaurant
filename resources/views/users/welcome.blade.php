@@ -1,21 +1,14 @@
 @extends('users.layout')
 
+@section('useful')
+    
+<h1 class="display-2 font-weight-bold my-3">Restau-U</h1>
+<h2 class="display-4 mb-5">Plus simple &amp; Plus efficace</h2>
+@endsection
+
 @section('main')
 
-<div class="modal" tabindex="-1" id="authRequired" data-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title ">ACCES REFUSE </h2>
-                <button type="button" class="btn-close" data-dismiss="modal"></button>
-            </div>
-            <div class="modal-body bg-fuchsia text-danger justify-content-center">
-                Vous tentez d'accéder à une ressource qui nécessite une authentification. <br>
-                Vueillez vous authetifier d'abord !!
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <!-- Navbar -->
 <nav class="custom-navbar navbar navbar-expand-lg navbar-dark fixed-top" data-spy="affix" data-offset-top="10">
@@ -89,14 +82,6 @@
         </ul>
     </div>
 </nav>
-
-<!-- header -->
-<header id="home" class="header">
-    <div class="overlay text-white text-center">
-        <h1 class="display-2 font-weight-bold my-3">Restau-U</h1>
-        <h2 class="display-4 mb-5">Plus simple &amp; Plus efficace</h2>
-    </div>
-</header>
 
 <!--Connexion Modal-->
 <div class="modal" id="modalConnexion">
@@ -253,16 +238,17 @@
     </div>
 </div>
 
-<!--Sidescreen-->
-<div class="offcanvas offcanvas-end text-bg-dark" id="sideScreen">
-    <div class="offcanvas-header">
-        <h1 class="offcanvas-title "> Tickets </h1>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+<!-- Sidescreen Starts Here-->
+    <div class="offcanvas offcanvas-end text-bg-dark" id="sideScreen">
+        <div class="offcanvas-header">
+            <h1 class="offcanvas-title "> Tickets </h1>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <livewire:ticket-component :tickets=" $tickets " />
+        </div>
     </div>
-    <div class="offcanvas-body">
-        <livewire:ticket-component :tickets=" $tickets " />
-    </div>
-</div>
+<!-- Sidescreen Ends Here-->
 
 <!--  About Section  -->
 <div id="about" class="container-fluid wow fadeIn" id="about" data-wow-duration="1.5s">
