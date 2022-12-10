@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('users.lay')
 
 @section('content')
 <div class="container">

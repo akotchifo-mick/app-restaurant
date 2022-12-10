@@ -64,7 +64,9 @@
             </div>
             @auth
             <div class="mt-3 d-grid gap-2 col-3 mx-auto">
-                <button wire:click.prevent="create" class=" btn btn-primary">@lang('Get Ticket')</button>
+                <button wire:click.prevent="create" class=" btn btn-primary" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-content="@lang('Log Out')">
+                @lang('Get Ticket')
+                </button>
             </div>
             @endauth
             @guest

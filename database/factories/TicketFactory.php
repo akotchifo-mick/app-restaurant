@@ -16,7 +16,7 @@ class TicketFactory extends Factory
     {
         return [            
             'meal'      => $this->faker->randomElement(['Breakfast', 'Lunch', 'Dinner']),
-            'date'      => $this->faker->dateTimeBetween('2022-11-01', 'now'),
+            'date'      => $this->faker->dateTimeBetween('2022-12-01', 'now'),
             'orders'    => rand(1,5),
         ];
     }

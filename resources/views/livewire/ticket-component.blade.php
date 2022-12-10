@@ -2,6 +2,9 @@
     {{-- Stop trying to control. --}}
 
     @auth
+    @if ($tickets == null)
+        je suis nul
+    @endif
         @foreach ( $tickets as $ticket )
         <div class="card bg-primary ">
             <div class="card-header d-flex justify-content-around">

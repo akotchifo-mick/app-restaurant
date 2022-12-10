@@ -31,7 +31,7 @@ return [
         'array' => 'The :attribute must have between :min and :max items.',
     ],
     'boolean' => 'The :attribute field must be true or false.',
-    'confirmed' => ':attribute ne correspond pas.',
+    'confirmed' => 'Les :attribute ne correspondent pas.',
     'current_password' => 'The password is incorrect.',
     'date' => 'The :attribute is not a valid date.',
     'date_equals' => 'The :attribute must be a date equal to :date.',
@@ -100,7 +100,7 @@ return [
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
     'numeric' => 'Veuiller saisir un nombre entier.',
-    'password' => 'Mot de passe incorrect.',
+    'password' => 'Le :attibute est incorrect.',
     'present' => 'The :attribute field must be present.',
     'prohibited' => 'The :attribute field is prohibited.',
     'prohibited_if' => 'The :attribute field is prohibited when :other is :value.',
@@ -158,6 +158,13 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'breakfast' =>  'petit-déjeuner',
+        'lunch'     =>  'déjeuner',
+        'dinner'    =>  'dîner',
+        'password'  => 'mot de passe',
+        'cardId'    =>  'Numéro matricule',
+        'email'     =>  'Adresse mail'
+    ],
 
 ];

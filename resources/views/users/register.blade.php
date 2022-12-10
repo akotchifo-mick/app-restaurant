@@ -1,4 +1,4 @@
-@extends('users.header')
+@extends('users.lay')
 
 @section('content')
 <div class=" mt-3 mr-5 row ">
@@ -12,7 +12,7 @@
                     <div class="form-floating mt-1">
                         <input type="text" name="lastName"
                             class="form-control @error ( 'lastName' ) is-invalid @enderror" placeholder="Your Lastname"
-                            id="lastName" required autofocus>
+                            id="lastName" value="{{ old ( 'lastName' ) }} " autocomplete="lastName" required autofocus>
                         @error ( 'lastName' )
                         <span class="invalid-feedback" role="alert">
                             <strong> {{ $message }} </strong>
@@ -23,7 +23,8 @@
                     <div class="form-floating mt-1">
                         <input type="text" name="firstName"
                             class="form-control @error ( 'firstName' ) is-invalid @enderror"
-                            placeholder="Your FirstName" id="firstName" required autofocus>
+                            placeholder="Your FirstName" id="firstName" value="{{ old ( 'firstName' ) }} "
+                            autocomplete="firstName" required autofocus>
                         @error ( 'firstName' )
                         <span class="invalid-feedback" role="alert">
                             <strong> {{ $message }} </strong>
@@ -33,7 +34,8 @@
                     </div>
                     <div class="form-floating mt-1">
                         <input type="text" name="cardId" class="form-control @error ( 'cardId' ) is-invalid @enderror"
-                            placeholder="Your Card Id" id="cardId" required autofocus>
+                            placeholder="Your Card Id" id="cardId" value="{{ old ( 'cardId' ) }} " autocomplete="cardId"
+                            required autofocus>
                         @error ( 'cardId' )
                         <span class="invalid-feedback" role="alert">
                             <strong> {{ $message }} </strong>
@@ -44,7 +46,7 @@
                     <div class="form-floating mt-1">
                         <input type="email" name="email" class="form-control @error ( 'email' ) is-invalid @enderror"
                             placeholder="Your Email" id="email" value="{{ old ( 'email' ) }} " autocomplete="email"
-                           required autofocus>
+                            required autofocus>
                         @error ( 'email' )
                         <span class="invalid-feedback" role="alert">
                             <strong> {{ $message }} </strong>
@@ -75,8 +77,8 @@
                             Password' ) </label>
                     </div>
                     <div class="mt-1 d-flex justify-content-around col-12 mx-auto">
-                        <a class="mt-3" style="padding-bottom: 10px" href=" {{ route('welcome') }}"> 
-                            Déjà inscrit ? 
+                        <a class="mt-3" style="padding-bottom: 10px" href=" {{ route('welcome') }}">
+                            Déjà inscrit ?
                         </a>
                         <button class=" btn btn-primary">
                             @lang ( 'Submit' )

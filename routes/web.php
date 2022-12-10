@@ -17,10 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function () {$user = Auth::user();
+Route::get('/', function () {
+    $user = Auth::user();
 
     if (is_null($user))
-            return view('users.footer')->with('tickets', '');
+            return view('users.welcome');
     
     else {
 
@@ -28,29 +29,27 @@ Route::get('/test', function () {$user = Auth::user();
             return view('admin.starter');
 
         else {
-
-            $tickets = Ticket::where([
-                ['user_id', '=', $user->id], ['meal', '=', 'Breakfast'], ['date', '=', date("Y/m/d")]
-            ])->orWhere([
-                ['user_id', '=', $user->id], ['meal', '=', 'Lunch'], ['date', '=', date("Y/m/d")]
-            ])->orWhere([
-                ['user_id', '=', $user->id], ['meal', '=', 'Dinner'], ['date', '=', date("Y/m/d")]
-            ])
-                ->orderByDesc('date')->limit(3)->get();
-            return view('users.footer', compact('tickets'));
+            if( is_null( $user->email_verified_at ) )
+                return redirect()->route ('verification.notice');
+            else  
+                return view('users.welcome');
         }
     }
-});
+}) -> name( 'welcome' );
 
 Route::get('layout', function () {
-    return view('users.layout');
+    return view('users.lay');
 })->name('layout');
 
+Route::get('foot', function () {
+    return view('users.footer');
+});
+
 Route::get ('/dashboard', function () {
-    return view ( 'dashboard' );
+    return view ( 'users.dashboard' );
 })->middleware ('auth')->name ( 'dashboard' );
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     $user = Auth::user();
 
     if (is_null($user))
@@ -74,7 +73,7 @@ Route::get('/', function () {
             return view('users.welcome', compact('tickets'));
         }
     }
-})->name('welcome');
+})->name('welcome');*/
 
 
 

@@ -20,9 +20,9 @@ class UserFactory extends Factory
             'firstName' => $this->faker->firstName(),
             'cardId'    => $this->faker->unique()->randomNumber(8),
             'email'     => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'email_verified_at' => $this->faker->dateTimeBetween('2022-11-01', '2022-11-30'),
             'password'  => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            //'role'      => $this->faker->randomElement(['admin', 'student', 'waiter']),
+            //'role'      => $this->faker->randomElement(['admin', 'student', 'waiter']),   
         ];
     }
 

@@ -1,230 +1,152 @@
-@extends('users.layout')
+@extends('users.footer')
 
-@section('useful')
-    
-<h1 class="display-2 font-weight-bold my-3">Restau-U</h1>
-<h2 class="display-4 mb-5">Plus simple &amp; Plus efficace</h2>
+
+@section('nav-menu')
+<li class="scroll-to-section"><a href="#about">@lang('About')</a></li>
+<li class="scroll-to-section"><a href="#chefs">Menu</a></li>
+<li class="scroll-to-section"><a href="#reservation">Réserver</a></li>
+@auth
+<li>
+    <livewire:ticket-button />
+</li>
+<li class="submenu">
+    <a href="javascript:;"> Outils </a>
+    <ul>
+        <li><a href="{{ route('dashboard') }} ">Mon profil</a></li>
+        <li><a href="#">Nous contacter</a></li>
+        <li><a href=" {{ route('verification.notice') }} ">Vérifier mon adresse mail</a></li>
+    </ul>
+</li>
+<li>
+    <form action="{{route('logout')}}" method="POST">
+        @csrf
+        <button class="btn" type="submit" data-bs-toggle="popover" data-bs-placement="bottom"
+            data-bs-content="@lang('Log Out')"> <span>
+                {{Auth::user()->lastName. ' '.Auth::user()->firstName }}
+                <i class="fa fa-power-off"></i> </span>
+        </button>
+    </form>
+</li>
+@endauth
+@guest
+<li class="submenu">
+    <a href="javascript:;"> Authentification </a>
+    <ul>
+        <li><a href=" {{ route('register') }} ">Je m'inscris</a></li>
+        <li>
+            <a class="nav-link" type="button" data-target="#modalConnexion" data-toggle="modal">
+                Je me connecte
+            </a>
+        </li>
+    </ul>
+</li>
+@endguest
 @endsection
 
-@section('main')
+@section('content')
 
-
-
-<!-- Navbar -->
-<nav class="custom-navbar navbar navbar-expand-lg navbar-dark fixed-top" data-spy="affix" data-offset-top="10">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#home">@lang('Home')</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#about">@lang('About')</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#gallary">@lang('Menu')</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#book-table">@lang('Book-Table')</a>
-            </li>
-        </ul>
-        <a class="navbar-brand m-auto" href="#">
-            <img src="{{asset('assets/images/logo.svg')}}" class="brand-img" alt="">
-            <span class="brand-txt">
-                Restau-U
-            </span>
-        </a>
-        <ul class="navbar-nav">
-
-            @auth
-            <li class="nav-item">
-                <a class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideScreen">
-                    Tickets
-                </a>
-            </li>
-            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-regular fa-user"></i> {{Auth::user()->lastName.' '.Auth::user()->firstName
-                            }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-center"
-                            aria-labelledby="navbarDarkDropdownMenuLink" style="--bs-dropdown-spacer: 0.49rem;">
-                            <li><a class="dropdown-item" href="{{route('dashboard')}}">@lang('Dashboard')</a></li>
-                            <li>
-                                <form action="{{route('logout')}}" method="POST">
-                                    @csrf
-                                    <button class="dropdown-item">@lang('Logout')</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            @endauth
-            @guest
-            <!--<li class="nav-item">
-                    <button class="btn btn-outline-secondary" disabled>
-                        Disabled tickets
-                    </button>
-                </li>-->
-            <li class="nav-item">
-                <a class="nav-link" type="button" data-bs-target="#modalConnexion" data-bs-toggle="modal">
-                    Connexion
-                </a>
-            </li>
-            @endguest
-        </ul>
-    </div>
-</nav>
-
-<!--Connexion Modal-->
+<!-- ***** Connexion Modal ***** -->
 <div class="modal" id="modalConnexion">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="section">
-                <div class="container">
-                    <div class="row full-height justify-content-center">
-                        <div class="col-12 text-center align-self-center">
-                            <div class="section">
-                                <h6 class="mt-5 d-flex justify-content-around ">
-                                    <span class="h3"> @lang( 'Log In' )</span>
-                                    <span class="h3"> @lang( 'Register' ) </span>
-                                </h6>
-                                <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" hidden />
-                                <label for="reg-log"></label>
-                                <div class="card-3d-wrap mx-auto">
-                                    <div class="card-3d-wrapper">
-                                        <div class="card-front">
-                                            <div class="center-wrap">
-                                                <form action="{{ route ( 'login' ) }} " method="POST">
-                                                    @csrf
-                                                    <div class="section text-center">
-                                                        <h1 class="pb-3"> @lang ('Log In' ) </h1>
-                                                        <div class="form-floating mt-3">
-                                                            <input type="text" name="cardId"
-                                                                class="form-control @error ( 'cardId' ) is-invalid @enderror"
-                                                                placeholder="Your Card Id" id="cardId" autofocus>
-                                                            @error ( 'cardId' )
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong> {{ $message }} </strong>
-                                                            </span>
-                                                            @enderror
-                                                            <label for="cardId"> @lang ( 'Your Card Id' )</label>
-                                                        </div>
-                                                        <div class="form-floating mt-3">
-                                                            <input type="password" name="password" class="form-control"
-                                                                placeholder="Your Password" id="password">
-                                                            <label for="password"> @lang ( 'Your Password' ) </label>
-                                                            <!--@error('password')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong> {{ $message }} </strong>
-                                                                </span>
-                                                            @enderror()-->
-                                                        </div>
-                                                        <div class="d-flex justify-content-between">
-                                                            <div class="form-check mt-3">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    name="remember" id="remember" {{ old('remember')
-                                                                    ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="remember">
-                                                                    @lang ( 'Remember me' ) </label>
-                                                            </div>
-                                                            <a href="" class="text-danger" style="margin-top:15px">
-                                                                @lang ( 'Forgot Password ?' )
-                                                            </a>
-                                                        </div>
-                                                        <div class="mt-5 d-grid gap-2 col-6 mx-auto">
-                                                            <button class=" btn btn-primary"> @lang( 'Submit' )
-                                                            </button>
-                                                        </div>
+            <div class="modal-header ">
+                <span class="text-center">
+                    <h1 class="pb-3"> @lang ('Log In' ) </h1>
+                </span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if ( $errors->any() )
+                <div class="alert alert-danger">
+                    <ul class="list-unstyled">
+                        @foreach ($errors->all() as $error )
+                        <li> {{ $error }} </li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <form action="{{ route ( 'login' ) }} " method="POST">
+                    @csrf
+                    <div class="section text-center">
+                        <div class="form-floating mt-3">
+                            <input type="text" name="cardId" class="form-control" placeholder="Your Card Id" id="cardId"
+                                autofocus>
+                            <label for="cardId"> @lang ( 'Your Card Id' )</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <input type="password" name="password" class="form-control" placeholder="Your Password"
+                                id="password">
+                            <label for="password"> @lang ( 'Your Password' ) </label>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{
+                                    old('remember') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="remember">
+                                    @lang ( 'Remember me' ) </label>
+                            </div>
+                            <a href=" {{ route('password.request')}} " class="text-danger" style="margin-top:15px">
+                                @lang ( 'Forgot Password ?' )
+                            </a>
+                        </div>
+                        <div class="mt-5 d-grid gap-2 col-6 mx-auto">
+                            <button class=" btn btn-outline-primary"> Connexion
+                            </button>
+                        </div>
 
-                                                        </h2>
-                                                    </div>
-                                                </form>
+                        </h2>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer text-justify ">
+                <span> Pas encore inscrit,
+                    <a href="" class="text-danger" style="margin-top:15px"> Je m'inscris
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- ***** Connexion Modal Ends ***** -->
+
+
+<!-- ***** Reservation Modal Starts ***** 
+        <div class="modal" id="reservationModal" data-backdrop="static">
+            <div class="modal-dialog modal-lg modal-dialog-centered row">
+                <div id="top">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="left-content">
+                                    <div class="inner-content">
+                                        <h4>Restau-U</h4>
+                                        <h6>Plus simple &amp; Plus efficace</h6>
+                                        <div class="main-white-button scroll-to-section">
+                                            <a href="#reservation">@lang('Book-Table')</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="main-banner header-text">
+                                    <div class="Modern-Slider">
+                                        <div class="item">
+                                            <div class="img-fill">
+                                                <img src="{{asset('assets/images/slide-01.jpg')}}" alt="">
                                             </div>
                                         </div>
-                                        <div class="card-back">
-                                            <div class="center-wrap">
-                                                <form action="{{ route ( 'register' ) }} " method="POST">
-                                                    @csrf
-                                                    <div class="section text-center">
-                                                        <h1> @lang ( 'Sign Up' ) </h1>
-                                                        <div class="form-floating mt-1">
-                                                            <input type="text" name="lastName"
-                                                                class="form-control @error ( 'lastName' ) is-invalid @enderror"
-                                                                placeholder="Your Lastname" id="lastName" autofocus>
-                                                            @error ( 'lastName' )
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong> {{ $message }} </strong>
-                                                            </span>
-                                                            @enderror
-                                                            <label for="lastName"> @lang ( 'Your Lastname' )</label>
-                                                        </div>
-                                                        <div class="form-floating mt-1">
-                                                            <input type="text" name="firstName"
-                                                                class="form-control @error ( 'firstName' ) is-invalid @enderror"
-                                                                placeholder="Your FirstName" id="firstName" autofocus>
-                                                            @error ( 'firstName' )
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong> {{ $message }} </strong>
-                                                            </span>
-                                                            @enderror
-                                                            <label for="firstName"> @lang ( 'Your Firstname' )</label>
-                                                        </div>
-                                                        <div class="form-floating mt-1">
-                                                            <input type="text" name="cardId"
-                                                                class="form-control @error ( 'cardId' ) is-invalid @enderror"
-                                                                placeholder="Your Card Id" id="cardId" autofocus>
-                                                            @error ( 'cardId' )
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong> {{ $message }} </strong>
-                                                            </span>
-                                                            @enderror
-                                                            <label for="cardId"> @lang ( 'Your Card Id' )</label>
-                                                        </div>
-                                                        <div class="form-floating mt-1">
-                                                            <input type="email" name="email"
-                                                                class="form-control @error ( 'email' ) is-invalid @enderror"
-                                                                placeholder="Your Email" id="email"
-                                                                value="{{ old ( 'email' ) }} " autocomplete="email"
-                                                                autofocus>
-                                                            @error ( 'email' )
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong> {{ $message }} </strong>
-                                                            </span>
-                                                            @enderror
-                                                            <label for="email"> @lang( 'Your Email' ) </label>
-                                                        </div>
-                                                        <div class="form-floating mt-1">
-                                                            <input type="password" name="password"
-                                                                class="form-control @error ( 'password' ) is-invalid @enderror"
-                                                                placeholder="Your Password" id="password" autofocus>
-                                                            @error ( 'password' )
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong> {{ $message }} </strong>
-                                                            </span>
-                                                            @enderror
-                                                            <label for="password"> @lang ( 'Your Password' )</label>
-                                                        </div>
-                                                        <div class="form-floating mt-1">
-                                                            <input type="password" name="password_confirmation"
-                                                                class="form-control" placeholder="Confirm Your Password"
-                                                                id="password_confirmation" autofocus>
-                                                            <label for="password_confirmation"> @lang ( 'Confirm Your
-                                                                Password' ) </label>
-                                                        </div>
-                                                        <div class="mt-2 d-grid gap-2 col-6 mx-auto"">
-                                                            <button class=" btn btn-primary">
-                                                            @lang ( 'Submit' )</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
+                                        <div class="item">
+                                            <div class="img-fill">
+                                                <img src="{{asset('assets/images/slide-02.jpg')}}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="img-fill">
+                                                <img src="{{asset('assets/images/slide-03.jpg')}}" alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -235,167 +157,231 @@
                 </div>
             </div>
         </div>
+    --***** Connexion Modal Ends ***** -->
+
+<!-- ***** Required Auth Modal Starts Here ***** -->
+<div class="modal" tabindex="-1" id="authRequired" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title ">ACCES REFUSE </h2>
+                <button type="button" class="btn-close" data-dismiss="modal"></button>
+            </div>
+            <div class="modal-body bg-fuchsia text-danger justify-content-center">
+                Vous tentez d'accéder à une ressource qui nécessite une authentification. <br>
+                Vueillez vous authetifier d'abord !!
+            </div>
+        </div>
     </div>
 </div>
+<!-- ***** Required Auth Modal Ends ***** -->
 
 <!-- Sidescreen Starts Here-->
-    <div class="offcanvas offcanvas-end text-bg-dark" id="sideScreen">
-        <div class="offcanvas-header">
-            <h1 class="offcanvas-title "> Tickets </h1>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-        </div>
-        <div class="offcanvas-body">
-            <livewire:ticket-component :tickets=" $tickets " />
-        </div>
+@auth
+<div class="offcanvas offcanvas-end text-bg-dark" id="sideScreen">
+    <div class="offcanvas-header">
+        <h1 class="offcanvas-title "> Tickets </h1>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
     </div>
+    <div class="offcanvas-body">
+        <livewire:ticket-component />
+    </div>
+</div>
+@endauth
 <!-- Sidescreen Ends Here-->
 
-<!--  About Section  -->
-<div id="about" class="container-fluid wow fadeIn" id="about" data-wow-duration="1.5s">
-    <div class="row">
-        <div class="col-lg-6 has-img-bg"></div>
-        <div class="col-lg-6">
-            <div class="row justify-content-center">
-                <div class="col-sm-8 py-5 my-5">
-                    <h2 class="mb-4">About Us</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, quisquam accusantium
-                        nostrum modi, nemo, officia veritatis ipsum facere maxime assumenda voluptatum enim! Labore
-                        maiores placeat impedit, vero sed est voluptas!Lorem ipsum dolor sit amet, consectetur
-                        adipisicing elit. Expedita alias dicta autem, maiores doloremque quo perferendis, ut
-                        obcaecati harum, <br><br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum
-                        necessitatibus iste,
-                        nulla recusandae porro minus nemo eaque cum repudiandae quidem voluptate magnam voluptatum?
-                        <br>Nobis, saepe sapiente omnis qui eligendi pariatur. quis voluptas. Assumenda facere
-                        adipisci quaerat. Illum doloremque quae omnis vitae.
-                    </p>
-                    <p><b>Lonsectetur adipisicing elit. Blanditiis aspernatur, ratione dolore vero asperiores
-                            explicabo.</b></p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ab itaque modi, reprehenderit
-                        fugit soluta, molestias optio repellat incidunt iure sed deserunt nemo magnam rem explicabo
-                        vitae. Cum, nostrum, quidem.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--  gallary Section  -->
-<div id="gallary" class="text-center bg-dark text-light has-height-md middle-items wow fadeIn">
-    <h2 class="section-title"> @lang( 'OUR MENU' ) </h2>
-</div>
-<div class="gallary row">
-    <div class="col-sm-4 col-lg-4 gallary-item wow fadeIn">
-        <img src="{{asset('assets/images/gallary-1.jpg')}}" class="gallary-img">
-        <a href="#" class="gallary-overlay">
-            <i class="gallary-icon ti-plus"></i>
-        </a>
-    </div>
-    <div class="col-sm-4 col-lg-4 gallary-item wow fadeIn">
-        <img src="{{asset('assets/images/gallary-2.jpg')}}" class="gallary-img">
-        <a href="#" class="gallary-overlay">
-            <i class="gallary-icon ti-plus"></i>
-        </a>
-    </div>
-    <div class="col-sm-4 col-lg-4 gallary-item wow fadeIn">
-        <img src="{{asset('assets/images/gallary-3.jpg')}}" class="gallary-img">
-        <a href="#" class="gallary-overlay">
-            <i class="gallary-icon ti-plus"></i>
-        </a>
-    </div>
-</div>
-
-<!-- book a table Section  -->
-<div class="container-fluid has-bg-overlay text-center text-light has-height-md middle-items" id="book-table">
-    < livewire:ticket-form />
-</div>
-
-<!-- REVIEWS Section  -->
-<div id="testmonial" class="container-fluid wow fadeIn bg-dark text-light has-height-lg middle-items">
-    <h2 class="section-title my-5 text-center"> REVIEWS </h2>
-    <div class="row mt-3 mb-5">
-        <div class="col-md-4 my-3 my-md-0">
-            <div class="testmonial-card">
-                <h3 class="testmonial-title"> John Doe </h3>
-                <h6 class="testmonial-subtitle"> Web Designer </h6>
-                <div class="testmonial-body">
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nobis eligendi, quaerat
-                        accusamus ipsum sequi dignissimos consequuntur blanditiis natus. Aperiam! </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 my-3 my-md-0">
-            <div class="testmonial-card">
-                <h3 class="testmonial-title"> Steve Thomas </h3>
-                <h6 class="testmonial-subtitle"> UX/UI Designer </h6>
-                <div class="testmonial-body">
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum minus obcaecati cum
-                        eligendi perferendis magni dolorum ipsum magnam, sunt reiciendis natus. Aperiam! </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 my-3 my-md-0">
-            <div class="testmonial-card">
-                <h3 class="testmonial-title"> Miranda Joy </h3>
-                <h6 class="testmonial-subtitle"> Graphic Designer </h6>
-                <div class="testmonial-body">
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, nam. Earum nobis eligendi,
-                        dignissimos consequuntur blanditiis natus. Aperiam! </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- CONTACT Section  -->
-<div id="contact" class="container-fluid bg-dark text-light border-top wow fadeIn">
-    <div class="row">
-        <div class="col-md-6 px-0">
-            <div id="map" style="width: 100%; height: 100%; min-height: 400px"></div>
-        </div>
-        <div class="col-md-6 px-5 has-height-lg middle-items">
-            <h3>FIND US</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, laboriosam doloremque odio
-                delectus,
-                sunt magnam laborum impedit molestiae, magni quae ipsum, ullam eos! Alias suscipit impedit et,
-                adipisci illo quam.</p>
-            <div class="text-muted">
-                <p><span class="ti-location-pin pr-3"></span> 12345 Fake ST NoWhere, AB Country</p>
-                <p><span class="ti-support pr-3"></span> (123) 456-7890</p>
-                <p><span class="ti-email pr-3"></span>info@website.com</p>
-            </div>
-            <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        Hello, world! This is a toast message.
+<!-- ***** Main Banner Area Start ***** -->
+<div id="top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="left-content">
+                    <div class="inner-content">
+                        <h4>Restau-U</h4>
+                        <h6>Plus simple &amp; Plus efficace</h6>
+                        <div class="main-white-button scroll-to-section">
+                            <a href="#reservation">@lang('Book-Table')</a>
+                        </div>
                     </div>
-                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="main-banner header-text">
+                    <div class="Modern-Slider">
+                        <div class="item">
+                            <div class="img-fill">
+                                <img src="{{asset('assets/images/slide-01.jpg')}}" alt="">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="img-fill">
+                                <img src="{{asset('assets/images/slide-02.jpg')}}" alt="">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="img-fill">
+                                <img src="{{asset('assets/images/slide-03.jpg')}}" alt="">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- ***** Main Banner Area End ***** -->
 
-<!-- page footer  -->
-<div class="container-fluid bg-dark text-light has-height-md middle-items border-top text-center wow fadeIn">
-    <div class="row">
-        <div class="col-sm-4">
-            <h3>EMAIL US</h3>
-            <P class="text-muted">info@website.com</P>
+<!-- ***** About Area Starts ***** -->
+<section class="section" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="left-text-content">
+                    <div class="section-heading">
+                        <h6>About Us</h6>
+                        <h2>We Leave A Delicious Memory For You</h2>
+                    </div>
+                    <p>Klassy Cafe is one of the best restaurant HTML templates</a> with Bootstrap v4.5.2 CSS
+                        framework. You can download and feel free to use this website template layout for your
+                        restaurant business. You are allowed to use this template for commercial purposes.
+                        <br><br>You are NOT allowed to redistribute the template ZIP file on any template donwnload
+                        website. Please contact us for more information.
+                    </p>
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="{{asset('assets/images/about-thumb-01.jpg')}}" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img src="{{asset('assets/images/about-thumb-02.jpg')}}" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img src="{{asset('assets/images/about-thumb-03.jpg')}}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="right-content">
+                    <div class="thumb">
+                        <a rel="nofollow" href="http://youtube.com"><i class="fa fa-play"></i></a>
+                        <img src="{{asset('assets/images/about-video-bg.jpg')}}" alt="">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <h3>CALL US</h3>
-            <P class="text-muted">(123) 456-7890</P>
+    </div>
+</section>
+<!-- ***** About Area Ends ***** -->
+
+<!-- ***** Menu Area Starts ***** -->
+<section class="section" id="chefs">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-4 text-center">
+                <div class="section-heading">
+                    <h6>Our Menu</h6>
+                    <h2>We offer the best ingredients for you</h2>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <h3>FIND US</h3>
-            <P class="text-muted">12345 Fake ST NoWhere AB Country</P>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="chef-item">
+                    <div class="thumb">
+                        <img src="assets/images/chefs-01.jpg" alt="Chef #1">
+                    </div>
+                    <div class="down-content">
+                        <button class="btn btn-link" data-target="#reservationModal" data-toggle="modal">
+                            <h4>Réserver </h4>
+                        </button> <br>
+                        <span>Pastry Chef</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chef-item">
+                    <div class="thumb">
+                        <img src="assets/images/chefs-02.jpg" alt="Chef #2">
+                    </div>
+                    <div class="down-content">
+                        <h4>David Martin</h4>
+                        <span>Cookie Chef</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chef-item">
+                    <div class="thumb">
+                        <img src="assets/images/chefs-03.jpg" alt="Chef #3">
+                    </div>
+                    <div class="down-content">
+                        <h4>Peter Perkson</h4>
+                        <span>Pancake Chef</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ***** Menu Area Ends ***** -->
+
+<!-- ***** Reservation Us Area Starts ***** -->
+<section class="section" id="reservation">
+    <div class="container-fluid has-bg-overlay text-center text-light has-height-md middle-items">
+        < livewire:ticket-form />
+    </div>
+</section>
+<!-- ***** Reservation Area Ends ***** -->
+
+<!-- ***** Authentication Required Error Start ***** -->
+<div class="modal" tabindex="-1" id="authRequired" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title ">ACCES REFUSE </h2>
+                <button type="button" class="btn-close" data-dismiss="modal"></button>
+            </div>
+            <div class="modal-body bg-fuchsia text-danger justify-content-center">
+                Vous tentez d'accéder à une ressource qui nécessite une authentification. <br>
+                Veuillez vous authentifier d'abord !!
+            </div>
         </div>
     </div>
 </div>
-<div class="bg-dark text-light text-center border-top wow fadeIn">
-    <p class="mb-0 py-3 text-muted small">&copy; Copyright <script>
-            document.write(new Date().getFullYear())
-        </script> Made with <i class="ti-heart text-danger"></i> By dISO</p>
-</div>
+<!-- ***** Authentication Required Error Ends ***** -->
+@endsection
+
+@section('foot')
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-xs-12">
+                <!--<div class="right-text-content">
+                        <ul class="social-icons">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                </div>-->
+            </div>
+            <div class="col-lg-4">
+                <div class="logo">
+                    <a href="index.html"><img src="{{asset('assets/images/white-logo.png')}}" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xs-12">
+                <div class="left-text-content">
+                    <p class="mb-0 py-3 small">
+                        &copy; Copyright <script>
+                            document.write(new Date().getFullYear()) 
+                        </script> <br>
+                        Made with <i class="ti-heart text-danger"></i> By dISO
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 @endsection

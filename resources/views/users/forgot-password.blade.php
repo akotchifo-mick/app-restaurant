@@ -131,5 +131,5 @@
     </div>
 </div>
 
-<a href=" {{ route('password.confirm') }} "> Confirl password</a>
+<a href=" {{ route('password.confirm') }} "> Confirp password</a>
 @endsection
