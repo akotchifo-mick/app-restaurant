@@ -34,7 +34,7 @@
     <ul>
         <li><a href=" {{ route('register') }} ">Je m'inscris</a></li>
         <li>
-            <a class="nav-link" type="button" data-target="#modalConnexion" data-toggle="modal">
+            <a class="nav-link" type="button" data-target="#connexionModal" data-toggle="modal">
                 Je me connecte
             </a>
         </li>
@@ -46,7 +46,7 @@
 @section('content')
 
 <!-- ***** Connexion Modal ***** -->
-<div class="modal" id="modalConnexion">
+<div class="modal" id="connexionModal" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header ">
@@ -158,23 +158,6 @@
             </div>
         </div>
     --***** Connexion Modal Ends ***** -->
-
-<!-- ***** Required Auth Modal Starts Here ***** -->
-<div class="modal" tabindex="-1" id="authRequired" data-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title ">ACCES REFUSE </h2>
-                <button type="button" class="btn-close" data-dismiss="modal"></button>
-            </div>
-            <div class="modal-body bg-fuchsia text-danger justify-content-center">
-                Vous tentez d'accéder à une ressource qui nécessite une authentification. <br>
-                Vueillez vous authetifier d'abord !!
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ***** Required Auth Modal Ends ***** -->
 
 <!-- Sidescreen Starts Here-->
 @auth
@@ -342,8 +325,7 @@
                 <h2 class="modal-title ">ACCES REFUSE </h2>
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
-            <div class="modal-body bg-fuchsia text-danger justify-content-center">
-                Vous tentez d'accéder à une ressource qui nécessite une authentification. <br>
+            <div class="modal-body bg-fuchsia text-danger justify-content-center">               
                 Veuillez vous authentifier d'abord !!
             </div>
         </div>

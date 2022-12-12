@@ -5,10 +5,13 @@ namespace App\Http\Livewire;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TicketForm extends Component
 {
     public $orders, $meal;
+
+    protected $listeners = array('update');
 
     public function render ()
     {
@@ -40,11 +43,13 @@ class TicketForm extends Component
 
         ])-> first ();
 
-        //dd($creationGrant);
-
         if ( is_null ( $creationGrant )) {
-
             session ()->flash( 'ticketZero', 'Nous sommes fermés pour l\'instant. Merci de revenir plus tard' );
+            $this->dispatchBrowserEvent('swal:warningMessage', [
+                'type' => 'warning',
+                'title' => 'Nous sommes fermés pour l\'instant. Merci de revenir plus tard',
+                'text' => '',
+            ]);
 
         } 
         else {
@@ -57,8 +62,14 @@ class TicketForm extends Component
             ])->get ();
 
             if ( sizeof ( $tickets ) != 0) {
-
                 session ()->flash( 'duplicateTicket', 'Vous avez déjà un ticket pour le ' . $this->meal );
+
+                $this->dispatchBrowserEvent('swal:confirmDuplicate', [
+                    'type' => 'warning',
+                    'title' => 'duplicateTicket',
+                    'text' => 'Vous avez déjà un ticket pour le ' . $this->meal.'. Voulez-vous le modifier?',
+                    'id'    => $tickets[0]->id,
+                ]);
             } 
 
             else {
@@ -76,11 +87,22 @@ class TicketForm extends Component
 
                 ]);
                 session ()->flash( 'successMessage', 'Vous avez réservé un ticket pour le ' . $this->meal );
+
+                $this->dispatchBrowserEvent('swal:successMessage', [
+                    'type' => 'success',
+                    'title' => 'successMessage',
+                    'text' => 'Vous avez réservé un ticket pour le ' . $this->meal,
+                ]);
             }
         }
 
         $this->resetInput ();
         $this->emitTo ( 'ticket-component', 'created');
 
+    }
+
+    public function update ($id)
+    {
+        Ticket::find($id)->update();
     }
 }

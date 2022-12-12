@@ -20,7 +20,7 @@
   @livewireStyles
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
 
     <!-- Navbar -->
@@ -39,13 +39,13 @@
           <!-- Left navbar links -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a href="index3.html" class="nav-link">Home</a>
+              <a href=" {{ route('index') }} " class="nav-link">Home</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">Etudiants</a>
+              <a href=" {{ route('indexStudents') }} " class="nav-link">Etudiants</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">Caissiers</a>
+              <a href=" {{ route('indexWaiters') }} " class="nav-link">Caissiers</a>
             </li>
             <li class="nav-item dropdown">
               <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -119,7 +119,7 @@
             <div>
               <form action="{{route('logout')}}" method="POST">
                 @csrf
-                <button class="btn btn-ouutline-light"> <span>{{Auth::user()->lastName. ' '. Auth::user()->firstName }}
+                <button class="btn "> <span>{{Auth::user()->lastName. ' '. Auth::user()->firstName }}
                     <i class="fa fa-power-off"></i> </span> </button>
               </form>
             </div>

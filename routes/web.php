@@ -1,6 +1,7 @@
 <?php
 
 use App\Actions\Fortify\CreateNewUser;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TicketController;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
@@ -89,11 +90,19 @@ Route::view('ticket-form', 'livewire.home');
 Route::get('/admin', function () {
 
     return view('admin.starter');
+})->name('admin');
+
+Route::middleware(['auth', 'admin'])->group( function (){
+
+    Route::get('/admin', [AdminController::class, 'index'])
+            ->name('index');
+    Route::get('/admin/students', [AdminController::class, 'indexStudents'])
+        ->name('indexStudents');
+    Route::get('/admin/waiters', [AdminController::class, 'indexWaiters'])
+        ->name('indexWaiters');
 });
 
-Route::get('/admin/students', function () {
 
-    return view('admin.students');
-}) -> middleware('auth');
+
 Route::view('ticket-zero', 'livewire.home');
 Route::view('the-students', 'livewire.home');

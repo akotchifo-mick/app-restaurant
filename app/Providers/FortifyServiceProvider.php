@@ -15,6 +15,7 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Contracts\RegisterResponse as ContractsRegisterResponse;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Responses\RegisterResponse;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use function PHPUnit\Framework\returnSelf;
 

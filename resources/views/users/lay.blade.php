@@ -99,6 +99,7 @@
     <script src="{{asset('assets/js/new/slick.js')}}"></script>
     <script src="{{asset('assets/js/new/lightbox.js')}}"></script>
     <script src="{{asset('assets/js/new/isotope.js')}}"></script>
+    <script src="{{asset('assets/js/new/sweetalert.min.js')}}"></script>
 
     <!-- Global Init -->
     <script src="{{asset('assets/js/new/custom.js')}}"></script>
@@ -136,19 +137,66 @@
             $(' [data-toggle=]"popover" ').popover()
         })
     </script>
-    @if ( session()->has('authRequired') )
-    <script>
-        $( "#authRequired").modal('show')
-    </script>
-    @endif
     @if ( session()->has('authFailed') )
     <script>
-        $( "#modalConnexion" ).modal( 'show' )
+        swal({
+            title:'400 ERROR',
+            text:'Vérifier vos identifiants et réessayer',
+            icon:'error',
+        })
+        $('#connexionModal').modal('show');      
     </script>
     @endif
+    @if ( session()->has('authRequired') )
     <script>
-        $( "#reservationModal" ).modal( 'show' )
+        swal({
+            title:'401 ERROR',
+            text:'Une authentification est nécessaire pour accéder à la ressource demandée',
+            icon:'error',
+        })        
     </script>
+    @endif
+    @if ( session()->has('accessDenied') )
+    <script>
+        swal({
+            title:'403 ERROR',
+            text:'Seul un administrateur peut accéder à la ressource demandée',
+            icon:'error',
+        })        
+    </script>
+    @endif
+
+    <script>
+    window.addEventListener('swal:warningMessage', event => {
+        swal({
+            title:event.detail.title,
+            text:event.detail.text,
+            icon:event.detail.type,
+        })
+    });
+    /*window.addEventListener('swal:modaloo', event => {
+        swal({
+            title:event.detail.title,
+            text:event.detail.text,
+            icon:event.detail.type,
+        })
+    });
+    window.addEventListener('swal:confirm', event => {
+        swal({
+            title:event.detail.title,
+            text:event.detail.text,
+            icon:event.detail.type,
+            buttons:  true,
+            dangerMode: true,
+        })
+        .then( (willUpdate) => {
+            if(willUpdate)
+                window.livewire.emit('update', event.detail.id);
+        });
+    }*/
+    </script>
+
+    
     
 </body>
 
