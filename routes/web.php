@@ -78,7 +78,7 @@ Route::get ('/dashboard', function () {
 
 
 
-Route::view('ticket-form', 'livewire.home');
+
 
 /**
  * everything above this section works fine
@@ -103,6 +103,7 @@ Route::middleware(['auth', 'admin'])->group( function (){
 });
 
 
-
+Route::view('ticket-form', 'livewire.home');
+Route::view('button-reserver', 'livewire.home');
 Route::view('ticket-zero', 'livewire.home');
 Route::view('the-students', 'livewire.home');

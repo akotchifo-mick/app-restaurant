@@ -174,14 +174,14 @@
             icon:event.detail.type,
         })
     });
-    /*window.addEventListener('swal:modaloo', event => {
+    window.addEventListener('swal:successMessage', event => {
         swal({
             title:event.detail.title,
             text:event.detail.text,
             icon:event.detail.type,
         })
     });
-    window.addEventListener('swal:confirm', event => {
+    window.addEventListener('swal:confirmDuplicate', event => {
         swal({
             title:event.detail.title,
             text:event.detail.text,
@@ -193,7 +193,7 @@
             if(willUpdate)
                 window.livewire.emit('update', event.detail.id);
         });
-    }*/
+    });
     </script>
 
     

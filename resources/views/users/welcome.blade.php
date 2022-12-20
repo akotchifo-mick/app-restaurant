@@ -182,13 +182,11 @@
                     <div class="inner-content">
                         <h4>Restau-U</h4>
                         <h6>Plus simple &amp; Plus efficace</h6>
-                        <div class="main-white-button scroll-to-section">
-                            <a href="#reservation">@lang('Book-Table')</a>
-                        </div>
+                        < livewire:button-reserver />
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-8" id="scrollableImages">
                 <div class="main-banner header-text">
                     <div class="Modern-Slider">
                         <div class="item">
@@ -211,7 +209,16 @@
             </div>
         </div>
     </div>
+    <!-- ***** Reservation Us Area Starts ***** 
+    <section class="collapse" id="reservation">
+        <div class="section container-fluid has-bg-overlay text-center text-light has-height-md middle-items">
+            < livewire:ticket-form />
+        </div>
+    </section>
+    ***** Reservation Area Ends ***** -->
 </div>
+
+
 <!-- ***** Main Banner Area End ***** -->
 
 <!-- ***** About Area Starts ***** -->
@@ -309,13 +316,6 @@
 
 <!-- ***** Menu Area Ends ***** -->
 
-<!-- ***** Reservation Us Area Starts ***** -->
-<section class="section" id="reservation">
-    <div class="container-fluid has-bg-overlay text-center text-light has-height-md middle-items">
-        < livewire:ticket-form />
-    </div>
-</section>
-<!-- ***** Reservation Area Ends ***** -->
 
 <!-- ***** Authentication Required Error Start ***** -->
 <div class="modal" tabindex="-1" id="authRequired" data-backdrop="static">
@@ -325,7 +325,7 @@
                 <h2 class="modal-title ">ACCES REFUSE </h2>
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
-            <div class="modal-body bg-fuchsia text-danger justify-content-center">               
+            <div class="modal-body bg-fuchsia text-danger justify-content-center">
                 Veuillez vous authentifier d'abord !!
             </div>
         </div>

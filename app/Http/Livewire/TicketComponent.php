@@ -9,18 +9,20 @@ use Livewire\Component;
 
 class TicketComponent extends Component
 {
+    public $tickets;
 
     protected $listeners = [
-        'created'=> '$refresh',
-        'update'    =>  '$refresh',
+        'createdTicket'             => '$refresh',
+        'updateTicketsScreen'       =>  '$refresh',
     ];
 
     public function render()
     {
+        
         $user = Auth::user();
-        return view('livewire.ticket-component', [
-            'tickets' => $user->ticketsToday ( $user ),
-        ]);
+        $this->tickets =$user->ticketsToday ( $user );
+        return view('livewire.ticket-component');
+    
     }
 
  

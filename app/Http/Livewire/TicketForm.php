@@ -66,7 +66,7 @@ class TicketForm extends Component
 
                 $this->dispatchBrowserEvent('swal:confirmDuplicate', [
                     'type' => 'warning',
-                    'title' => 'duplicateTicket',
+                    'title' => 'Confirmation de modification',
                     'text' => 'Vous avez déjà un ticket pour le ' . $this->meal.'. Voulez-vous le modifier?',
                     'id'    => $tickets[0]->id,
                 ]);
@@ -90,19 +90,20 @@ class TicketForm extends Component
 
                 $this->dispatchBrowserEvent('swal:successMessage', [
                     'type' => 'success',
-                    'title' => 'successMessage',
+                    'title' => 'Confirmation de réservaton',
                     'text' => 'Vous avez réservé un ticket pour le ' . $this->meal,
                 ]);
             }
         }
 
         $this->resetInput ();
-        $this->emitTo ( 'ticket-component', 'created');
+        $this->emitTo ( 'ticket-component', 'createdTicket');
 
     }
 
     public function update ($id)
     {
-        Ticket::find($id)->update();
+        Ticket::find($id)->delete();
+
     }
 }
