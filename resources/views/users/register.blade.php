@@ -1,9 +1,9 @@
 @extends('users.lay')
 
 @section('content')
-<div class=" mt-3 mr-5 row ">
-    <div class="col-6"></div>
-    <div class="col-6 card ">
+<div class=" mt-3 mr-2 row ">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6 card ">
         <div class="card-body">
             <form action="{{ route ( 'register' ) }} " method="POST">
                 @csrf
