@@ -30,7 +30,7 @@ class ButtonReserver extends Component
 
         // le ticket 0 existe, on redirige l'utilisateur sur la page de réservation des tickets
         else
-            redirect( route('dashboard') );
+            redirect( route('reserver') );
     }
     public function render()
     {
