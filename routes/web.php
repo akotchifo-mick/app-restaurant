@@ -38,17 +38,15 @@ Route::get('/', function () {
     }
 }) -> name( 'welcome' );
 
-Route::get('layout', function () {
+/*Route::get('layout', function () {
     return view('users.lay');
-})->name('layout');
+})->name('layout');*/
 
-Route::get('foot', function () {
+/*Route::get('foot', function () {
     return view('users.footer');
-});
+});*/
 
-Route::get ('/dashboard', function () {
-    return view ( 'users.dashboard' );
-})->middleware ('auth')->name ( 'dashboard' );
+
 
 /*Route::get('/', function () {
     $user = Auth::user();
@@ -76,31 +74,29 @@ Route::get ('/dashboard', function () {
     }
 })->name('welcome');*/
 
-
-
-
-
-/**
- * everything above this section works fine
- */
-
-
-
+Route::middleware('auth')->group( function (){
+    Route::get ('/dashboard', function () {
+        return view ( 'users.dashboard' );
+    })->name ( 'dashboard' );
+    Route::controller(\App\Http\Controllers\UserController::class)->group( function() {  
+        Route::get('/reserver', 'reserver')->name('reserver');
+    });
+});
 
 Route::get('/admin', function () {
 
     return view('admin.starter');
 })->name('admin');
 
-Route::middleware(['auth', 'admin'])->group( function (){
-
-    Route::get('/admin', [AdminController::class, 'index'])
-            ->name('index');
-    Route::get('/admin/students', [AdminController::class, 'indexStudents'])
-        ->name('indexStudents');
-    Route::get('/admin/waiters', [AdminController::class, 'indexWaiters'])
-        ->name('indexWaiters');
+Route::controller(\App\Http\Controllers\AdminController::class)->group( function() {    
+    Route::middleware(['auth', 'admin'])->group( function (){
+        Route::get('/admin', 'index')->name('index');
+        Route::get('/admin/students', 'indexStudents')->name('indexStudents');
+        Route::get('/admin/waiters', 'indexWaiters')->name('indexWaiters');
+    });
 });
+
+
 
 
 Route::view('ticket-form', 'livewire.home');
