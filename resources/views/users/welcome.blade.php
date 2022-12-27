@@ -2,44 +2,43 @@
 
 
 @section('nav-menu')
-<li class="scroll-to-section"><a href="#about">@lang('About')</a></li>
-<li class="scroll-to-section"><a href="#chefs">Menu</a></li>
-@auth
-<li>
-    <livewire:ticket-button />
-</li>
-<li class="submenu">
-    <a href="javascript:;"> Outils </a>
-    <ul>
-        <li><a href="{{ route('dashboard') }} ">Mon profil</a></li>
-        <li><a href="#">Nous contacter</a></li>
-        <li><a href=" {{ route('verification.notice') }} ">Vérifier mon adresse mail</a></li>
-    </ul>
-</li>
-<li>
-    <form action="{{route('logout')}}" method="POST">
-        @csrf
-        <button class="btn" type="submit" data-bs-toggle="popover" data-bs-placement="bottom"
-            data-bs-content="@lang('Log Out')"> <span>
-                {{Auth::user()->lastName. ' '.Auth::user()->firstName }}
-                <i class="fa fa-power-off"></i> </span>
-        </button>
-    </form>
-</li>
-@endauth
-@guest
-<li class="submenu">
-    <a href="javascript:;"> Authentification </a>
-    <ul>
-        <li><a href=" {{ route('register') }} ">Je m'inscris</a></li>
-        <li>
-            <a class="nav-link" type="button" data-target="#connexionModal" data-toggle="modal">
-                Je me connecte
-            </a>
-        </li>
-    </ul>
-</li>
-@endguest
+    <li class="scroll-to-section"><a href="#about">@lang('About')</a></li>
+    <li class="scroll-to-section"><a href="#chefs">Menu</a></li>
+    @auth
+    <li>
+        <livewire:ticket-button />
+    </li>
+    <li class="submenu">
+        <a href="javascript:;"> Outils </a>
+        <ul>
+            <li><a href="{{ route('dashboard') }} ">Mon profil</a></li>
+            <li><a href="#">Nous contacter</a></li>
+        </ul>
+    </li>
+    <li>
+        <form action="{{route('logout')}}" method="POST">
+            @csrf
+            <button class="btn" type="submit" data-bs-toggle="popover" data-bs-placement="bottom"
+                data-bs-content="@lang('Log Out')"> <span>
+                    {{Auth::user()->lastName. ' '.Auth::user()->firstName }}
+                    <i class="fa fa-power-off"></i> </span>
+            </button>
+        </form>
+    </li>
+    @endauth
+    @guest
+    <li class="submenu">
+        <a href="javascript:;"> Authentification </a>
+        <ul>
+            <li><a href=" {{ route('register') }} ">Je m'inscris</a></li>
+            <li>
+                <a class="nav-link" type="button" data-target="#connexionModal" data-toggle="modal">
+                    Je me connecte
+                </a>
+            </li>
+        </ul>
+    </li>
+    @endguest
 @endsection
 
 @section('content')
@@ -144,17 +143,17 @@
                     <div class="Modern-Slider">
                         <div class="item">
                             <div class="img-fill">
-                                <img src="{{asset('assets/images/slide-01.jpg')}}" alt="">
+                                <img src="{{asset('assets/images/gallary-9.jpg')}}" alt="">
                             </div>
                         </div>
                         <div class="item">
                             <div class="img-fill">
-                                <img src="{{asset('assets/images/slide-02.jpg')}}" alt="">
+                                <img src="{{asset('assets/images/gallary-11.jpg')}}" alt="">
                             </div>
                         </div>
                         <div class="item">
                             <div class="img-fill">
-                                <img src="{{asset('assets/images/slide-03.jpg')}}" alt="">
+                                <img src="{{asset('assets/images/gallary-12.jpg')}}" alt="">
                             </div>
                         </div>
                     </div>
@@ -169,7 +168,7 @@
 <section class="section" id="chefs">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 offset-lg-4 text-center">
+            <div class="col-lg-4 offset-lg-4">
                 <div class="section-heading">
                     <h6>Our Menu</h6>
                     <h2>We offer the best ingredients for you</h2>
@@ -180,35 +179,36 @@
             <div class="col-lg-4">
                 <div class="chef-item">
                     <div class="thumb">
-                        <img src="assets/images/chefs-01.jpg" alt="Chef #1">
+                        <img src="assets/images/gallary-9.jpg" alt="Chef #1">
                     </div>
                     <div class="down-content">
-                        <button class="btn btn-link" data-target="#reservationModal" data-toggle="modal">
-                            <h4>Réserver </h4>
-                        </button> <br>
-                        <span>Pastry Chef</span>
+                        <a class="btn btn-link" href="{{ route('reserver') }}">
+                            <h4>@lang('Breakfast')</h4>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="chef-item">
                     <div class="thumb">
-                        <img src="assets/images/chefs-02.jpg" alt="Chef #2">
+                        <img src="assets/images/gallary-11.jpg" >
                     </div>
                     <div class="down-content">
-                        <h4>David Martin</h4>
-                        <span>Cookie Chef</span>
+                        <a class="btn btn-link" href="{{ route('reserver') }}">
+                            <h4>@lang('Lunch')</h4>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="chef-item">
                     <div class="thumb">
-                        <img src="assets/images/chefs-03.jpg" alt="Chef #3">
+                        <img src="assets/images/gallary-12.jpg" >
                     </div>
                     <div class="down-content">
-                        <h4>Peter Perkson</h4>
-                        <span>Pancake Chef</span>
+                        <a class="btn btn-link" href="{{ route('reserver') }}">
+                            <h4>@lang('Dinner')</h4>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -224,8 +224,8 @@
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="left-text-content">
                     <div class="section-heading">
-                        <h6>About Us</h6>
-                        <h2>We Leave A Delicious Memory For You</h2>
+                        <h6>@lang('About')</h6>
+                        <h2>Notre objectif</h2>
                     </div>
                     <p>Klassy Cafe is one of the best restaurant HTML templates</a> with Bootstrap v4.5.2 CSS
                         framework. You can download and feel free to use this website template layout for your
@@ -249,7 +249,6 @@
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="right-content">
                     <div class="thumb">
-                        <a rel="nofollow" href="http://youtube.com"><i class="fa fa-play"></i></a>
                         <img src="{{asset('assets/images/about-video-bg.jpg')}}" alt="">
                     </div>
                 </div>
@@ -258,6 +257,51 @@
     </div>
 </section>
 <!-- ***** About Area Ends *****   -->
+
+ <!-- ***** Menu Area Starts ***** -->
+ <section class="section" id="menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="section-heading">
+                    <h6>GALERIE</h6>
+                    <h2>Nos souvenirs avec vous, chers étudiants</h2>
+                </div>
+            </div>
+            <div class="col-lg-8"></div>
+            <div class="col-lg-1 "></div>
+            <div class="col-lg-10">
+                <div class="main-banner header-text">
+                    <div class="Modern-Slider">
+                    <!-- Item -->
+                    <div class="item">
+                        <div class="img-fill">
+                            <img src="assets/images/slide-01.jpg" alt="">
+                        </div>
+                    </div>
+                    <!-- // Item -->
+                    <!-- Item -->
+                    <div class="item">
+                        <div class="img-fill">
+                            <img src="assets/images/slide-02.jpg" alt="">
+                        </div>
+                    </div>
+                    <!-- // Item -->
+                    <!-- Item -->
+                    <div class="item">
+                        <div class="img-fill">
+                            <img src="assets/images/slide-03.jpg" alt="">
+                        </div>
+                    </div>
+                    <!-- // Item -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    </div>
+</section>
+<!-- ***** Menu Area Ends ***** -->
 
 <!-- ***** Authentication Required Error Start ***** -->
 <div class="modal" tabindex="-1" id="authRequired" data-backdrop="static">

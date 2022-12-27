@@ -1,5 +1,5 @@
 <div>
-    @auth
+   <!--  @auth
     @if (session()->has('successMessage'))
     <div class="toast show position-fixed bottom-0 end-0 bg-success" role="alert" aria-live="polite" aria-atomic="true">
         <div role="alert" aria-live="assertive" aria-atomic="true">
@@ -33,7 +33,7 @@
         </div>
     </div>
     @endif
-    @endauth
+    @endauth-->
 
     {{-- The Master doesn't talk, he acts. --}}
     <div>

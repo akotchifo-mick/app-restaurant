@@ -1065,7 +1065,7 @@ chefs
 
 #chefs {
   padding-top: 120px;
-  background-image : url(../../images/book-table-img.jpg);
+  //background-image : url(../../images/book-table-img.jpg);
   margin-top: 120px;
   background-position: center center;
   background-repeat: no-repeat;
