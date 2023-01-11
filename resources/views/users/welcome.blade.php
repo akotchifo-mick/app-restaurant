@@ -167,12 +167,10 @@
 <!-- ***** Menu Area Starts ***** -->
 <section class="section" id="chefs">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-4 offset-lg-4">
-                <div class="section-heading">
-                    <h6>Our Menu</h6>
-                    <h2>We offer the best ingredients for you</h2>
-                </div>
+        <div class="left-text-content">
+            <div class="section-heading">
+                <h6>@lang('Our Menu')</h6>
+                <h2>We offer the best ingredients for you</h2>
             </div>
         </div>
         <div class="row">

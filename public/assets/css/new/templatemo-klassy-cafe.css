@@ -1072,18 +1072,6 @@ chefs
   background-size: cover;
 }
 
-#chefs .section-heading {
-  margin-bottom: 70px;
-}
-
-#chefs .section-heading h6 {
-  padding-left: 0px;
-}
-
-#chefs .section-heading h6:before {
-  display: none;
-}
-
 #chefs .chef-item {
   text-align: center;
   border: 1px solid #afafaf;

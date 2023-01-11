@@ -1,44 +1,9 @@
 <div>
-   <!--  @auth
-    @if (session()->has('successMessage'))
-    <div class="toast show position-fixed bottom-0 end-0 bg-success" role="alert" aria-live="polite" aria-atomic="true">
-        <div role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <strong class="me-auto"><i class="bi-globe"></i> Un nouveau message cher étudiant</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                {{ session('successMessage') }}
-            </div>
-        </div>
-    </div>
-    @elseif (session()->has('duplicateTicket'))
-    <div class="toast fade show position-fixed bottom-0 end-0 bg-danger ">
-        <div class="toast-header">
-            <strong class="me-auto"><i class="bi-globe"></i> Un nouveau message cher étudiant</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            {{ session('duplicateTicket') }}
-        </div>
-    </div>
-    @elseif (session()->has('ticketZero'))
-    <div class="toast fade show position-fixed bottom-0 end-0 bg-warning">
-        <div class="toast-header">
-            <strong class="me-auto"><i class="bi-globe"></i> Un nouveau message cher étudiant</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            {{ session('ticketZero') }}
-        </div>
-    </div>
-    @endif
-    @endauth-->
-
+   
     {{-- The Master doesn't talk, he acts. --}}
     <div>
 
-        <form>
+        <form wire:submit.prevent="create">
             @csrf
             <h2 class="section-title ">@lang('Book-Table')</h2>
             @if ($errors->any())
@@ -64,7 +29,7 @@
             </div>
             @auth
             <div class="mt-3 d-grid gap-2 col-3 mx-auto">
-                <button wire:click.prevent="create" class=" btn btn-primary" >
+                <button type="submit" class=" btn btn-primary" >
                 @lang('Get Ticket')
                 </button>
             </div>

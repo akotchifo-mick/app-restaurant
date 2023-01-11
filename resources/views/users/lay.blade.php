@@ -49,7 +49,7 @@
                     <div class="col-12">
                         <nav class="main-nav">
                             <!-- ***** Logo Start ***** -->
-                            <a href="index.html" class="logo">
+                            <a href=" {{ route('welcome') }}" class="logo">
                                 <img src="{{asset('assets/images/klassy-logo.png')}}" align="klassy cafe html template">
                             </a>
                             <!-- ***** Logo End ***** -->
@@ -153,7 +153,8 @@
             title:'401 ERROR',
             text:'Une authentification est nécessaire pour accéder à la ressource demandée',
             icon:'error',
-        })        
+        })
+        $('#connexionModal').modal('show');  
     </script>
     @endif
     @if ( session()->has('accessDenied') )
@@ -173,6 +174,9 @@
             text:event.detail.text,
             icon:event.detail.type,
         })
+        .then(function () {
+            window.location.assign('/');
+        });
     });
     window.addEventListener('swal:successMessage', event => {
         swal({
@@ -180,6 +184,9 @@
             text:event.detail.text,
             icon:event.detail.type,
         })
+        .then(function () {
+            window.location.assign('/');
+        });
     });
     window.addEventListener('swal:confirmDuplicate', event => {
         swal({
@@ -191,7 +198,10 @@
         })
         .then( (willUpdate) => {
             if(willUpdate)
-                window.livewire.emit('update', event.detail.id);
+                window.livewire.emit('update', event.detail.id, event.detail.orders);
+        })
+        .then(function () {
+            window.location.assign('/');
         });
     });
     </script>

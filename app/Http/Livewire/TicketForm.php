@@ -11,7 +11,13 @@ class TicketForm extends Component
 {
     public $orders, $meal;
 
+    protected $rules = [
+        'meal' =>'required|string',
+        'orders' =>'required|min:1|max:5',        
+    ];
+
     protected $listeners = array('update');
+    
 
     public function render ()
     {
@@ -27,20 +33,11 @@ class TicketForm extends Component
     public function create ()
     {
 
-        $validated = $this->validate ([
-
-            'meal'      => 'required',
-            'orders'    => 'required|numeric|integer|min:1'
-
-        ]);
-
+        $this->validate ();
         $user = Auth::user ();
-
         $creationGrant = Ticket::where ([
-
             ['date', date('Y-m-d')],
             ['number', 0]
-
         ])-> first ();
 
         if ( is_null ( $creationGrant )) {
@@ -53,12 +50,10 @@ class TicketForm extends Component
 
         } 
         else {
-
             $tickets = Ticket::where ([
                 [ 'user_id', '=', $user->id ],
                 [ 'meal', '=', $this->meal ],
                 [ 'date', '=', date("Y/m/d") ],
-
             ])->get ();
 
             if ( sizeof ( $tickets ) != 0) {
@@ -69,41 +64,40 @@ class TicketForm extends Component
                     'title' => 'Confirmation de modification',
                     'text' => 'Vous avez déjà un ticket pour le ' . $this->meal.'. Voulez-vous le modifier?',
                     'id'    => $tickets[0]->id,
+                    'orders' => $this->orders,
                 ]);
             } 
 
             else {
-
                 $lastTicket = Ticket::where ( 'date', date( 'Y-m-d' ) )
                                     ->orderBy( 'number', 'desc' )->first ();
 
                 $ticket = Ticket::create ([
-
                     'meal'      => $this->meal,
                     'date'      => date( "Y/m/d" ),
                     'user_id'   => Auth::user() ->id,
                     'orders'    => $this->orders,
                     'number'    => $lastTicket->number + 1,
 
-                ]);
-                session ()->flash( 'successMessage', 'Vous avez réservé un ticket pour le ' . $this->meal );
+                ]);                
 
                 $this->dispatchBrowserEvent('swal:successMessage', [
                     'type' => 'success',
                     'title' => 'Confirmation de réservaton',
-                    'text' => 'Vous avez réservé un ticket pour le ' . $this->meal,
+                    'text' => 'Vous avez réservé un ticket pour le ' .$this->meal,
                 ]);
+                $this->emit('createdTicket');
             }
         }
-
+        
         $this->resetInput ();
-        $this->emitTo ( 'ticket-component', 'createdTicket');
-
     }
 
-    public function update ($id)
+    public function update ($id, $orders)
     {
-        Ticket::find($id)->delete();
-
+        $changes = Ticket::find($id);
+        $changes->orders = $orders;
+        $changes->save();
+        $this->emit('updateScreen');
     }
 }

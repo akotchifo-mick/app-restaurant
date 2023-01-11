@@ -13,7 +13,7 @@ class TicketComponent extends Component
 
     protected $listeners = [
         'createdTicket'             => '$refresh',
-        'updateTicketsScreen'       =>  '$refresh',
+        'updateScreen'       =>  '$refresh',
     ];
 
     public function render()
